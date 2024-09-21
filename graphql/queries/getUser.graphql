@@ -1,0 +1,16 @@
+query GetListUser {
+  getListUser {
+    code
+    success
+    message
+    listUser {
+      _id
+      clerkId
+      email
+      name
+      wishlist
+      createdAt
+      updatedAt
+    }
+  }
+}

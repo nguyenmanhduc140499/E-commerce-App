@@ -1,0 +1,38 @@
+mutation CreateOrder($createOrderInput: CreateOrderInput!) {
+  createOrder(createOrderInput: $createOrderInput) {
+    code
+    success
+    message
+    order {
+      _id
+      customerClerkId
+      totalAmount
+      address
+      phone
+      email
+      customerName
+      products {
+        product {
+          _id
+          title
+          description
+          category
+          price
+          expense
+          media
+          collections
+          tags
+          sizes
+          colors
+          createdAt
+          updatedAt
+        }
+        color
+        size
+        quantity
+      }
+      createdAt
+      updatedAt
+    }
+  }
+}

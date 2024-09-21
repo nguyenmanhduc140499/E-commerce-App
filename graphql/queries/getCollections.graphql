@@ -1,0 +1,65 @@
+query getListCollection {
+  getListCollection {
+    code
+    success
+    message
+    listCollection {
+      _id
+      title
+      description
+      image
+      createdAt
+      updatedAt
+      products {
+        _id
+        title
+        description
+        category
+        price
+        expense
+        media
+        collections
+        tags
+        sizes
+        colors
+        createdAt
+        updatedAt
+      }
+    }
+  }
+}
+
+query getCollection($GetCollectionInput: GetCollectionInput!) {
+  getCollection(GetCollectionInput: $GetCollectionInput) {
+    code
+    success
+    message
+    collection {
+      _id
+      title
+      description
+      image
+      createdAt
+      updatedAt
+      products {
+        _id
+        title
+        description
+        category
+        price
+        expense
+        media
+        collections
+        tags
+        sizes
+        colors
+        createdAt
+        updatedAt
+      }
+    }
+  }
+}
+
+query GetCollectionTitle($_id: String!) {
+  getCollectionTitle(_id: $_id)
+}

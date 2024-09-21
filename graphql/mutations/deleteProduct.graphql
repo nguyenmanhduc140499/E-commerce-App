@@ -1,0 +1,7 @@
+mutation DeleteProduct($DeleteProductInput: DeleteProductInput!) {
+  deleteProduct(DeleteProductInput: $DeleteProductInput) {
+    code
+    success
+    message
+  }
+}

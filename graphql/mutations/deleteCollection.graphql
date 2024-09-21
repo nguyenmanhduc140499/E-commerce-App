@@ -1,0 +1,7 @@
+mutation DeleteCollection($DeleteCollectionInput: DeleteCollectionInput!) {
+  deleteCollection(DeleteCollectionInput: $DeleteCollectionInput) {
+    code
+    success
+    message
+  }
+}

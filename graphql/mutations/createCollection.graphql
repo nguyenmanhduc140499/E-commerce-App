@@ -1,0 +1,35 @@
+mutation CreateCollection(
+  $title: String!
+  $description: String
+  $image: String!
+) {
+  createCollection(
+    CreateCollectionInput: {
+      title: $title
+      description: $description
+      image: $image
+    }
+  ) {
+    _id
+    title
+    description
+    image
+    createdAt
+    updatedAt
+    products {
+      _id
+      title
+      description
+      category
+      price
+      expense
+      media
+      collections
+      tags
+      sizes
+      colors
+      createdAt
+      updatedAt
+    }
+  }
+}

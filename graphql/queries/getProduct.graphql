@@ -1,0 +1,91 @@
+query GetListProduct {
+  getListProduct {
+    code
+    success
+    message
+    listProduct {
+      _id
+      title
+      description
+      category
+      price
+      expense
+      media
+      collections
+      tags
+      sizes
+      colors
+      createdAt
+      updatedAt
+    }
+  }
+}
+
+query getProductDetail($getProductInput: GetProductInput!) {
+  getProductDetail(getProductInput: $getProductInput) {
+    code
+    success
+    message
+    product {
+      _id
+      title
+      description
+      category
+      price
+      expense
+      media
+      colors
+      collections
+      tags
+      sizes
+      createdAt
+      updatedAt
+    }
+  }
+}
+
+query SearchProduct($productQuery: String!) {
+  searchProduct(productQuery: $productQuery) {
+    code
+    success
+    message
+    listProduct {
+      _id
+      title
+      description
+      category
+      price
+      expense
+      media
+      collections
+      tags
+      sizes
+      colors
+      createdAt
+      updatedAt
+    }
+  }
+}
+
+query GetRelatedProduct($mainProductId: String!) {
+  getRelatedProduct(mainProductId: $mainProductId) {
+    code
+    success
+    message
+    listProduct {
+      _id
+      title
+      description
+      category
+      price
+      expense
+      media
+      collections
+      tags
+      sizes
+      colors
+      createdAt
+      updatedAt
+    }
+  }
+}

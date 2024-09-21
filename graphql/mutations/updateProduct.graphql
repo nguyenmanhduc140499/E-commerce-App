@@ -1,0 +1,22 @@
+mutation UpdateProduct($UpdateProductInput: UpdateProductInput!) {
+  updateProduct(UpdateProductInput: $UpdateProductInput) {
+    code
+    success
+    message
+    product {
+      _id
+      title
+      description
+      category
+      price
+      expense
+      media
+      collections
+      tags
+      sizes
+      colors
+      createdAt
+      updatedAt
+    }
+  }
+}

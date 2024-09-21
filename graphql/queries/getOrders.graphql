@@ -1,0 +1,92 @@
+query GetListOrder {
+  getListOrder {
+    code
+    success
+    message
+    listOrder {
+      _id
+      customer
+      products
+      totalAmount
+      createdAt
+    }
+  }
+}
+
+query GetOrderDetail($detailsOrderInput: DetailsOrderInput!) {
+  getOrderDetails(detailsOrderInput: $detailsOrderInput) {
+    code
+    success
+    message
+    order {
+      _id
+      customerClerkId
+      customerName
+      address
+      phone
+      totalAmount
+      email
+      createdAt
+      updatedAt
+      products {
+        color
+        size
+        quantity
+        product {
+          _id
+          title
+          description
+          category
+          price
+          expense
+          media
+          collections
+          tags
+          sizes
+          colors
+          createdAt
+          updatedAt
+        }
+      }
+    }
+  }
+}
+
+query GetOrderByCustomer($customerClerkId: String!) {
+  getOrderByCustomer(customerClerkId: $customerClerkId) {
+    code
+    success
+    message
+    listOrder {
+      _id
+      customerClerkId
+      customerName
+      address
+      phone
+      totalAmount
+      email
+      createdAt
+      updatedAt
+      products {
+        color
+        size
+        quantity
+        product {
+          _id
+          title
+          description
+          category
+          price
+          expense
+          media
+          collections
+          tags
+          sizes
+          colors
+          createdAt
+          updatedAt
+        }
+      }
+    }
+  }
+}

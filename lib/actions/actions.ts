@@ -1,6 +1,6 @@
 
 export const getTotalSales = async () => {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_ADMIN_DASHBOARD_URL}/api/orders`);
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/orders`);
     const orders = await res.json();
     const totalOrders = orders.length;
     const totalRevenue = orders.reduce((acc: number, order: OrderColumnType) => acc + order.totalAmount, 0)
@@ -8,14 +8,14 @@ export const getTotalSales = async () => {
 }
 
 export const getTotalCustomers = async () => {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_ADMIN_DASHBOARD_URL}/api/customer`);
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/customer`);
     const customers = await res.json();
     const totalCustomers = customers.length
     return totalCustomers
 }
 
 export const getSalesPerMonth = async () => {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_ADMIN_DASHBOARD_URL}/api/orders`);
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/orders`);
     const orders = await res.json();
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const salesPerMonth = orders.reduce((acc: any, order: any) => {

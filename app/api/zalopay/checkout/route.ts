@@ -39,7 +39,7 @@ export const POST = async (req: NextRequest) => {
                 phone: customer.phone,
             }),
             bank_code: "",
-            callback_url: `${process.env.NEXT_PUBLIC_ADMIN_DASHBOARD_URL}/api/zalopay/callback`,
+            callback_url: `${process.env.NEXT_PUBLIC_API_URL}/api/zalopay/callback`,
             // callback_url: `https://e884-2405-4802-1ca4-ef90-7dc0-1673-e18a-bcf3.ngrok-free.app/api/zalopay/callback`,
         };
         // Create the signature using Key1

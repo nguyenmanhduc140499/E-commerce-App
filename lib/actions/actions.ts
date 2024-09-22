@@ -1,14 +1,25 @@
 
 export const getTotalSales = async () => {
+    let totalOrders = 0
+    let totalRevenue = 0
     const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/orders`);
+    if (!res.ok) {
+        // Handle non-2xx responses (like 404, 500)
+        console.error(`Failed to fetch orders: ${res.statusText}`);
+        return { totalOrders: 0, totalRevenue: 0 };
+    }
     const orders = await res.json();
-    const totalOrders = orders.length;
-    const totalRevenue = orders.reduce((acc: number, order: OrderColumnType) => acc + order.totalAmount, 0)
+    totalOrders = orders.length;
+    totalRevenue = orders.reduce((acc: number, order: OrderColumnType) => acc + order.totalAmount, 0)
     return { totalOrders, totalRevenue }
 }
 
 export const getTotalCustomers = async () => {
     const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/customer`);
+    if (!res.ok) {
+        console.error(`Failed to fetch customers: ${res.statusText}`);
+        return 0;
+    }
     const customers = await res.json();
     const totalCustomers = customers.length
     return totalCustomers
@@ -16,6 +27,11 @@ export const getTotalCustomers = async () => {
 
 export const getSalesPerMonth = async () => {
     const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/orders`);
+    if (!res.ok) {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const a: any[] = []
+        return a
+    }
     const orders = await res.json();
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const salesPerMonth = orders.reduce((acc: any, order: any) => {

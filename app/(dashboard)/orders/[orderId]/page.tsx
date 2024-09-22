@@ -4,7 +4,7 @@ import { formatCurrencyVND } from "@/lib/common";
 
 const OrderDetails = async ({ params }: { params: { orderId: string } }) => {
   const res = await fetch(
-    `${process.env.ECOMMERCE_ADMIN_URL}/orders/${params.orderId}`,
+    `${process.env.NEXT_PUBLIC_ADMIN_DASHBOARD_URL}/api/orders/${params.orderId}`,
     {
       method: "GET",
       cache: "reload",

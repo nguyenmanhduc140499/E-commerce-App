@@ -32,14 +32,14 @@ export const POST = async (req: NextRequest) => {
             amount: customer.totalAmount,
             description: `Nghien - Payment for the order #${transID}`,
             embed_data: JSON.stringify({
-                redirecturl: `${process.env.ECOMMERCE_STORE_URL_PAGE}/payment_success`,
+                redirecturl: `${process.env.NEXT_PUBLIC_ECOMMERCE_STORE_URL_PAGE}/payment_success`,
                 customerName: customer.name,
                 email: customer.email,
                 address: customer.address,
                 phone: customer.phone,
             }),
             bank_code: "",
-            callback_url: `${process.env.ECOMMERCE_ADMIN_URL}/zalopay/callback`,
+            callback_url: `${process.env.NEXT_PUBLIC_ADMIN_DASHBOARD_URL}/api/zalopay/callback`,
             // callback_url: `https://e884-2405-4802-1ca4-ef90-7dc0-1673-e18a-bcf3.ngrok-free.app/api/zalopay/callback`,
         };
         // Create the signature using Key1
@@ -60,7 +60,7 @@ export const POST = async (req: NextRequest) => {
         order.mac = CryptoJS.HmacSHA256(data, key1 as string).toString();
         try {
             const response = await axios.post(
-                process.env.ZALOPAY_SANDBOX_ENDPOINT as string,
+                process.env.ZALOPAY_REAL_ENDPOINT as string,
                 null,
                 { params: order, withCredentials: true }
             );

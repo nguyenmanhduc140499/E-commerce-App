@@ -32,7 +32,7 @@ export const POST = async (req: NextRequest) => {
             amount: customer.totalAmount,
             description: `Nghien - Payment for the order #${transID}`,
             embed_data: JSON.stringify({
-                redirecturl: `${process.env.NEXT_PUBLIC_ECOMMERCE_STORE_URL_PAGE}/payment_success`,
+                redirecturl: `${process.env.NEXT_PUBLIC_ECOMMERCE_STORE_URL_PAGE}/api/payment_success`,
                 customerName: customer.name,
                 email: customer.email,
                 address: customer.address,

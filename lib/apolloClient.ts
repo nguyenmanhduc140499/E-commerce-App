@@ -3,9 +3,8 @@ import {
     ApolloClient,
     InMemoryCache,
 } from "@apollo/client";
-console.log(process.env.GRAPHQL_API_URL)
 const httpLink = createHttpLink({
-    uri: `${process.env.GRAPHQL_API_URL}/graphql`,
+    uri: `${process.env.GRAPHQL_API_URL}`,
 });
 const client = new ApolloClient({
     link: httpLink,

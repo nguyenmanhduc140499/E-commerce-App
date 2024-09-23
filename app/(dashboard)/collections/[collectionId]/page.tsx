@@ -16,7 +16,6 @@ const CollectionDetails = ({
     try {
       const res = await fetch(`/api/collections/${params.collectionId}`, {
         method: "GET",
-        cache: "reload",
       });
       const data = await res.json();
       setCollectionDetail(data);

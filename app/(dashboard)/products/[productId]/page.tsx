@@ -11,7 +11,6 @@ const ProductDetails = ({ params }: { params: { productId: string } }) => {
     try {
       const res = await fetch(`/api/products/${params.productId}`, {
         method: "GET",
-        cache: "reload",
       });
       const data = await res.json();
       setProductDetail(data);

@@ -49,7 +49,6 @@ const ProductForm: React.FC<ProductProps> = ({ initialData }) => {
     try {
       const res = await fetch("/api/collections", {
         method: "GET",
-        cache: "reload",
       });
       const data = await res.json();
       setCollections(data);

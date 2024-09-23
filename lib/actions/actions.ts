@@ -4,9 +4,8 @@ export const getTotalSales = async () => {
     let totalRevenue = 0
     const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/orders`);
     if (!res.ok) {
-        // Handle non-2xx responses (like 404, 500)
         console.error(`Failed to fetch orders: ${res.statusText}`);
-        return { totalOrders: 0, totalRevenue: 0 };
+        return { totalOrders, totalRevenue };
     }
     const orders = await res.json();
     totalOrders = orders.length;

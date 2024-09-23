@@ -131,6 +131,7 @@ export const DELETE = async (
                 mutation: DELETE_COLLECTION_QUERY,
                 variables,
             });
+            return NextResponse.json({ message: "Delete collection successfully" }, { status: 200 });
         } catch (mutationError) {
             console.error("Error during mutation:", mutationError);
             return new NextResponse("Error during deletion", { status: 500 });

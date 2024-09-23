@@ -20,7 +20,6 @@ const Products = () => {
     try {
       const res = await fetch("/api/products", {
         method: "GET",
-        cache: "reload",
       });
       const data = await res.json();
       setProducts(data);

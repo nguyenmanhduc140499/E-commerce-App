@@ -60,7 +60,7 @@ export const POST = async (req: NextRequest) => {
         order.mac = CryptoJS.HmacSHA256(data, key1 as string).toString();
         try {
             const response = await axios.post(
-                process.env.ZALOPAY_REAL_ENDPOINT as string,
+                process.env.ZALOPAY_ENDPOINT as string,
                 null,
                 { params: order, withCredentials: true }
             );

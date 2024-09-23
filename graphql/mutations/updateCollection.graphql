@@ -28,3 +28,38 @@ mutation UpdateCollection($UpdateCollectionInput: UpdateCollectionInput!) {
     }
   }
 }
+
+mutation UpdateProductCollection(
+  $UpdateProductCollectionInput: UpdateProductCollectionInput!
+) {
+  updateProductCollection(
+    UpdateProductCollectionInput: $UpdateProductCollectionInput
+  ) {
+    code
+    success
+    message
+    collection {
+      _id
+      title
+      description
+      image
+      createdAt
+      updatedAt
+      products {
+        _id
+        title
+        description
+        category
+        price
+        expense
+        media
+        collections
+        tags
+        sizes
+        colors
+        createdAt
+        updatedAt
+      }
+    }
+  }
+}

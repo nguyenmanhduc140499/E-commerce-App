@@ -9,21 +9,39 @@ import {
 } from "@/components/ui/form"; //use shadcn/ui
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import React, { useState } from "react";
 import { Separator } from "../ui/separator";
 import { Textarea } from "../ui/textarea";
+import { z } from "zod";
 import ImageUpload from "../custom ui/ImageUpload";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import Delete from "../custom ui/Delete";
 import Loader from "../custom ui/Loader";
+import AdminProductCard from "../products/AdminProductCart";
+
 const formSchema = z.object({
   title: z.string().min(2).max(20),
   description: z.string().min(2).max(500).trim(),
   image: z.string(),
+  products: z
+    .array(
+      z.object({
+        title: z.string().min(2).max(20),
+        description: z.string().min(2).max(500).trim(),
+        media: z.array(z.string()),
+        category: z.string(),
+        collections: z.array(z.string()),
+        tags: z.array(z.string()),
+        sizes: z.array(z.string()),
+        colors: z.array(z.string()),
+        price: z.coerce.number().min(0.1),
+        expense: z.coerce.number().min(0.1),
+      })
+    )
+    .optional(),
 });
 
 interface CollectionProps {
@@ -135,6 +153,7 @@ const CollectionForm: React.FC<CollectionProps> = ({ initialData }) => {
               </FormItem>
             )}
           />
+
           <FormField
             control={form.control}
             name="image"
@@ -156,6 +175,23 @@ const CollectionForm: React.FC<CollectionProps> = ({ initialData }) => {
               </FormItem>
             )}
           />
+
+          {initialData?.products.length ? (
+            <div className="flex flex-col gap-6">
+              <FormLabel>Products</FormLabel>
+              <div className="flex flex-wrap gap-16">
+                {initialData.products.map((product: ProductType) => (
+                  <AdminProductCard
+                    key={product._id}
+                    product={product}
+                    collectionId={initialData._id}
+                  />
+                ))}
+              </div>
+            </div>
+          ) : (
+            <p></p>
+          )}
           <div className="flex gap-10">
             <Button type="submit" className="bg-blue-1 rounded-md text-white">
               Submit

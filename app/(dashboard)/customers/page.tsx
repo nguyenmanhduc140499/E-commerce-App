@@ -12,7 +12,7 @@ const Customers = () => {
 
   const getOrders = async () => {
     try {
-      const res = await fetch(`/api/customers`, {
+      const res = await fetch(`/api/customer`, {
         method: "GET",
         cache: "reload",
       });

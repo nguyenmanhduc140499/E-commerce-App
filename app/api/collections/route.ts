@@ -51,19 +51,6 @@ export const POST = async (req: NextRequest) => {
   }
 };
 
-// export const createCollection = async (title: string, description: string, image: string) => {
-//   try {
-//     const { data } = await client.mutate({
-//       mutation: CREATE_COLLECTION_QUERY,
-//       variables: { title: title, description: description, image: image },
-//     });
-//     return data.createCollection
-//   } catch (mutationError) {
-//     console.error("Error during mutation:", mutationError);
-//     return new NextResponse("Error during deletion", { status: 500 });
-//   }
-// }
-
 //get list collection
 export const GET = async () => {
   try {

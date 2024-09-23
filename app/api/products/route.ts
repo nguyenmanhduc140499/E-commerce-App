@@ -90,7 +90,7 @@ export const GET = async () => {
     });
     return NextResponse.json(data.getListProduct.listProduct, { status: 200 });
   } catch (err) {
-    console.log("[collections_GET]", err);
+    console.log("[Products_GET]", err);
     return new NextResponse("Internal Server Error", { status: 500 });
   }
 };

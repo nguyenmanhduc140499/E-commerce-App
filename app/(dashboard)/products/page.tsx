@@ -13,13 +13,15 @@ import { columns } from "@/components/products/ProductColumns";
 const Products = () => {
   const router = useRouter();
 
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [products, setProducts] = useState<ProductType[]>([]);
 
   const getProducts = async () => {
     try {
+      setLoading(true);
       const res = await fetch("/api/products", {
         method: "GET",
+        cache: "no-store",
       });
       const data = await res.json();
       setProducts(data);

@@ -69,6 +69,14 @@ export type CollectionResponse = {
   success: Scalars['Boolean']['output'];
 };
 
+export type CollectionTitleResponse = {
+  __typename?: 'CollectionTitleResponse';
+  code: Scalars['Float']['output'];
+  message?: Maybe<Scalars['String']['output']>;
+  success: Scalars['Boolean']['output'];
+  title?: Maybe<Scalars['String']['output']>;
+};
+
 export type CreateCollectionInput = {
   description?: InputMaybe<Scalars['String']['input']>;
   image: Scalars['String']['input'];
@@ -282,7 +290,7 @@ export type ProductResponse = {
 export type Query = {
   __typename?: 'Query';
   getCollection?: Maybe<CollectionResponse>;
-  getCollectionTitle?: Maybe<Scalars['String']['output']>;
+  getCollectionTitle: CollectionTitleResponse;
   getListCollection?: Maybe<AllCollectionResponse>;
   getListOrder?: Maybe<AllOrderResponse>;
   getListProduct?: Maybe<AllProductResponse>;
@@ -302,7 +310,7 @@ export type QueryGetCollectionArgs = {
 
 
 export type QueryGetCollectionTitleArgs = {
-  _id: Scalars['String']['input'];
+  DeleteCollectionInput: DeleteCollectionInput;
 };
 
 
@@ -457,11 +465,11 @@ export type GetCollectionQueryVariables = Exact<{
 export type GetCollectionQuery = { __typename?: 'Query', getCollection?: { __typename?: 'CollectionResponse', code: number, success: boolean, message?: string | null, collection?: { __typename?: 'Collection', _id: string, title: string, description?: string | null, image: string, createdAt?: any | null, updatedAt?: any | null, products?: Array<{ __typename?: 'Product', _id: string, title: string, description: string, category: string, price: number, expense: number, media: Array<string>, collections?: Array<string> | null, tags?: Array<string> | null, sizes?: Array<string> | null, colors?: Array<string> | null, createdAt?: any | null, updatedAt?: any | null }> | null } | null } | null };
 
 export type GetCollectionTitleQueryVariables = Exact<{
-  _id: Scalars['String']['input'];
+  DeleteCollectionInput: DeleteCollectionInput;
 }>;
 
 
-export type GetCollectionTitleQuery = { __typename?: 'Query', getCollectionTitle?: string | null };
+export type GetCollectionTitleQuery = { __typename?: 'Query', getCollectionTitle: { __typename?: 'CollectionTitleResponse', code: number, success: boolean, message?: string | null, title?: string | null } };
 
 export type GetListOrderQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -1055,8 +1063,13 @@ export type GetCollectionLazyQueryHookResult = ReturnType<typeof useGetCollectio
 export type GetCollectionSuspenseQueryHookResult = ReturnType<typeof useGetCollectionSuspenseQuery>;
 export type GetCollectionQueryResult = Apollo.QueryResult<GetCollectionQuery, GetCollectionQueryVariables>;
 export const GetCollectionTitleDocument = gql`
-    query GetCollectionTitle($_id: String!) {
-  getCollectionTitle(_id: $_id)
+    query GetCollectionTitle($DeleteCollectionInput: DeleteCollectionInput!) {
+  getCollectionTitle(DeleteCollectionInput: $DeleteCollectionInput) {
+    code
+    success
+    message
+    title
+  }
 }
     `;
 
@@ -1072,7 +1085,7 @@ export const GetCollectionTitleDocument = gql`
  * @example
  * const { data, loading, error } = useGetCollectionTitleQuery({
  *   variables: {
- *      _id: // value for '_id'
+ *      DeleteCollectionInput: // value for 'DeleteCollectionInput'
  *   },
  * });
  */

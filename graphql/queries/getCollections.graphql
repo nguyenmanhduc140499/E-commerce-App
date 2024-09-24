@@ -60,6 +60,11 @@ query getCollection($GetCollectionInput: GetCollectionInput!) {
   }
 }
 
-query GetCollectionTitle($_id: String!) {
-  getCollectionTitle(_id: $_id)
+query GetCollectionTitle($DeleteCollectionInput: DeleteCollectionInput!) {
+  getCollectionTitle(DeleteCollectionInput: $DeleteCollectionInput) {
+    code
+    success
+    message
+    title
+  }
 }

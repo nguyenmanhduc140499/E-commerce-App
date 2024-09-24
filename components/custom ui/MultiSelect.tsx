@@ -10,6 +10,7 @@ import {
 import { useState } from "react";
 import { Badge } from "../ui/badge";
 import { X } from "lucide-react";
+import { Separator } from "../ui/separator";
 
 interface MultiSelectProps {
   placeholder: string;
@@ -47,7 +48,10 @@ const MultiSelect: React.FC<MultiSelectProps> = ({
     <Command className="overflow-visible bg-white">
       <div className="flex gap-1 flex-wrap border rounded-md">
         {selected.map(collection => (
-          <Badge key={collection._id}>
+          <Badge
+            key={collection._id}
+            className="hover:bg-grey-1 hover:text-white"
+          >
             {collection.title}
             <button
               type="button"
@@ -58,7 +62,7 @@ const MultiSelect: React.FC<MultiSelectProps> = ({
             </button>
           </Badge>
         ))}
-
+        <Separator className="bg-grey-1" />
         <CommandInput
           placeholder={placeholder}
           value={inputValue}

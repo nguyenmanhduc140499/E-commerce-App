@@ -87,6 +87,7 @@ export const GET = async () => {
     const GET_PRODUCTS_QUERY = GetListProductDocument;
     const { data } = await client.query({
       query: GET_PRODUCTS_QUERY,
+      fetchPolicy: "network-only"
     });
     return NextResponse.json(data.getListProduct.listProduct, { status: 200 });
   } catch (err) {

@@ -50,6 +50,7 @@ const Products = () => {
         </Button>
       </div>
       <Separator className="bg-grey-1 my-4" />
+      <p className="font-light italic text-xs pt-5">You can search by title</p>
       <DataTable columns={columns} data={products} searchKey="title" />
     </div>
   );

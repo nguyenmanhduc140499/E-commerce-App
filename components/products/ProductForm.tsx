@@ -197,83 +197,141 @@ const ProductForm: React.FC<ProductProps> = ({ initialData }) => {
               </FormItem>
             )}
           />
-          <div className="md:grid md:grid-cols-3 gap-8">
-            <FormField
-              control={form.control}
-              name="price"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Price (VND)</FormLabel>
-                  <FormControl>
-                    <Input
-                      type="number"
-                      placeholder="Price"
-                      {...field}
-                      onKeyDown={handleKeyPress}
-                    />
-                  </FormControl>
-                  <FormMessage className="text-red-1" />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="expense"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Expense (VND)</FormLabel>
-                  <FormControl>
-                    <Input
-                      type="number"
-                      placeholder="Expense"
-                      {...field}
-                      onKeyDown={handleKeyPress}
-                    />
-                  </FormControl>
-                  <FormMessage className="text-red-1" />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="category"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Category</FormLabel>
-                  <FormControl>
-                    <Input
-                      placeholder="Category"
-                      {...field}
-                      onKeyDown={handleKeyPress}
-                    />
-                  </FormControl>
-                  <FormMessage className="text-red-1" />
-                </FormItem>
-              )}
-            />
+          <div className="flex flex-row">
+            <div className="md:grid md:grid-cols-2 gap-8 aline-item w-4/5 pr-8">
+              <FormField
+                control={form.control}
+                name="price"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Price (VND)</FormLabel>
+                    <FormControl>
+                      <Input
+                        type="number"
+                        placeholder="Price"
+                        {...field}
+                        onKeyDown={handleKeyPress}
+                      />
+                    </FormControl>
+                    <FormMessage className="text-red-1" />
+                  </FormItem>
+                )}
+              />
 
-            <FormField
-              control={form.control}
-              name="tags"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Tags</FormLabel>
-                  <FormControl>
-                    <MultiText
-                      placeholder="Tags"
-                      value={field.value}
-                      onChange={tag => field.onChange([...field.value, tag])}
-                      onRemove={tagToRemove =>
-                        field.onChange([
-                          ...field.value.filter(tag => tag !== tagToRemove),
-                        ])
-                      }
-                    />
-                  </FormControl>
-                  <FormMessage className="text-red-1" />
-                </FormItem>
-              )}
-            />
+              <FormField
+                control={form.control}
+                name="expense"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Expense (VND)</FormLabel>
+                    <FormControl>
+                      <Input
+                        type="number"
+                        placeholder="Expense"
+                        {...field}
+                        onKeyDown={handleKeyPress}
+                      />
+                    </FormControl>
+                    <FormMessage className="text-red-1" />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name="category"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Category</FormLabel>
+                    <FormControl>
+                      <Input
+                        placeholder="Category"
+                        {...field}
+                        onKeyDown={handleKeyPress}
+                      />
+                    </FormControl>
+                    <FormMessage className="text-red-1" />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name="tags"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Tags</FormLabel>
+                    <FormControl>
+                      <MultiText
+                        placeholder="Tags"
+                        value={field.value}
+                        onChange={tag => field.onChange([...field.value, tag])}
+                        onRemove={tagToRemove =>
+                          field.onChange([
+                            ...field.value.filter(tag => tag !== tagToRemove),
+                          ])
+                        }
+                      />
+                    </FormControl>
+                    <FormMessage className="text-red-1" />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name="colors"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Colors</FormLabel>
+                    <FormControl>
+                      <MultiText
+                        placeholder="Colors"
+                        value={field.value}
+                        onChange={color =>
+                          field.onChange([...field.value, color])
+                        }
+                        onRemove={colorToRemove =>
+                          field.onChange([
+                            ...field.value.filter(
+                              color => color !== colorToRemove
+                            ),
+                          ])
+                        }
+                      />
+                    </FormControl>
+                    <FormMessage className="text-red-1" />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name="sizes"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Sizes</FormLabel>
+                    <FormControl>
+                      <MultiText
+                        placeholder="Sizes"
+                        value={field.value}
+                        onChange={size =>
+                          field.onChange([...field.value, size])
+                        }
+                        onRemove={sizeToRemove =>
+                          field.onChange([
+                            ...field.value.filter(
+                              size => size !== sizeToRemove
+                            ),
+                          ])
+                        }
+                      />
+                    </FormControl>
+                    <FormMessage className="text-red-1" />
+                  </FormItem>
+                )}
+              />
+            </div>
 
             {collections.length > 0 && (
               <FormField
@@ -302,54 +360,6 @@ const ProductForm: React.FC<ProductProps> = ({ initialData }) => {
                 )}
               />
             )}
-            <FormField
-              control={form.control}
-              name="colors"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Colors</FormLabel>
-                  <FormControl>
-                    <MultiText
-                      placeholder="Colors"
-                      value={field.value}
-                      onChange={color =>
-                        field.onChange([...field.value, color])
-                      }
-                      onRemove={colorToRemove =>
-                        field.onChange([
-                          ...field.value.filter(
-                            color => color !== colorToRemove
-                          ),
-                        ])
-                      }
-                    />
-                  </FormControl>
-                  <FormMessage className="text-red-1" />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="sizes"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Sizes</FormLabel>
-                  <FormControl>
-                    <MultiText
-                      placeholder="Sizes"
-                      value={field.value}
-                      onChange={size => field.onChange([...field.value, size])}
-                      onRemove={sizeToRemove =>
-                        field.onChange([
-                          ...field.value.filter(size => size !== sizeToRemove),
-                        ])
-                      }
-                    />
-                  </FormControl>
-                  <FormMessage className="text-red-1" />
-                </FormItem>
-              )}
-            />
           </div>
 
           <div className="flex gap-10">

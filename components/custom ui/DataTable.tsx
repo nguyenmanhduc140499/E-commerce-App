@@ -47,7 +47,7 @@ export function DataTable<TData, TValue>({
   });
 
   return (
-    <div className="py-5">
+    <div className="pb-5">
       <div className="flex items-center py-4">
         <Input
           placeholder="Search..."

@@ -8,7 +8,6 @@ export const getTotalSales = async () => {
     const { data, errors } = await client.query({
         query: GET_ORDERS_QUERY,
     });
-    // const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/orders`, { method: "GET", cache: "no-cache" });
     if (!data) {
         console.error(`Failed to fetch orders: ${errors}`);
         return { totalOrders, totalRevenue };
@@ -24,7 +23,6 @@ export const getTotalCustomers = async () => {
     const { data, errors } = await client.query({
         query: GET_USERS_QUERY,
     });
-    // const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/customer`, { method: "GET", cache: "no-cache" });
     if (!data) {
         console.error(`Failed to fetch customers: ${errors}`);
         return 0;
@@ -39,7 +37,6 @@ export const getSalesPerMonth = async () => {
     const { data, errors } = await client.query({
         query: GET_ORDERS_QUERY,
     });
-    // const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/orders`, { method: "GET", cache: "no-cache" });
     if (!data) {
         console.error(`Failed to fetch orders: ${errors}`);
         // eslint-disable-next-line @typescript-eslint/no-explicit-any

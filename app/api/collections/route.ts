@@ -57,6 +57,7 @@ export const GET = async () => {
     const GET_COLLECTIONS_QUERY = GetListCollectionDocument;
     const { data } = await client.query({
       query: GET_COLLECTIONS_QUERY,
+      fetchPolicy: 'network-only'
     });
     return NextResponse.json(data.getListCollection.listCollection, {
       status: 200,

@@ -19,6 +19,7 @@ const Collections = () => {
       setLoading(true);
       const res = await fetch("/api/collections", {
         method: "GET",
+        cache: "no-store",
       });
       const data = await res.json();
       setCollections(data);

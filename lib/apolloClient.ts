@@ -9,6 +9,6 @@ const httpLink = createHttpLink({
 const client = new ApolloClient({
     link: httpLink,
     credentials: "include",
-    cache: new InMemoryCache(),// Disables result caching. Turn false in development evn
+    cache: new InMemoryCache({ resultCaching: false }),// Disables result caching. Turn false in development evn
 });
 export default client

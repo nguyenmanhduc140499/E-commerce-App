@@ -26,6 +26,7 @@ export const columns: ColumnDef<CollectionType>[] = [
     ),
   },
   {
+    header: "Action",
     id: "action",
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     cell: ({ row }) => <Delete item="collection" id={row.original._id} />,

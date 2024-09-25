@@ -1,8 +1,23 @@
 "use client";
 
 import { ColumnDef } from "@tanstack/react-table";
+import toast from "react-hot-toast";
 import Delete from "../custom ui/Delete";
 import Link from "next/link";
+
+const activeProduct = async ({ _id }: { _id: string }) => {
+  try {
+    const res = await fetch(`/api/products/${_id}`, {
+      method: "PUT",
+    });
+    if (res.ok) {
+      window.location.reload();
+    }
+  } catch (error) {
+    console.log("[active_product_column_PUT]", error);
+    toast.error("Something went wrong! Please try again.");
+  }
+};
 
 export const columns: ColumnDef<ProductType>[] = [
   {
@@ -28,11 +43,25 @@ export const columns: ColumnDef<ProductType>[] = [
     header: "Expense (VND)",
   },
   {
-    id: "actions",
-    cell: ({ row }) => <Delete item="product" id={row.original._id} />,
-  },
-  {
     accessorKey: "status",
     header: "Status",
+  },
+  {
+    header: "Active",
+    id: "actions",
+    cell: ({ row }) =>
+      row.original.status === "INUSE" ? (
+        <Delete item="product" id={row.original._id} />
+      ) : (
+        <button
+          className="bg-red-1 text-white border rounded-lg py-2 px-2"
+          style={{
+            pointerEvents: "auto", // Cho phép sự kiện tương tác trên nút này
+          }}
+          onClick={() => activeProduct({ _id: row.original._id })}
+        >
+          Reuse
+        </button>
+      ),
   },
 ];

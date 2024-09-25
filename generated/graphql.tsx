@@ -18,6 +18,10 @@ export type Scalars = {
   DateTime: { input: any; output: any; }
 };
 
+export type ActiveProductInput = {
+  _id: Scalars['String']['input'];
+};
+
 export type AllCollectionResponse = {
   __typename?: 'AllCollectionResponse';
   code: Scalars['Float']['output'];
@@ -155,6 +159,7 @@ export type ListOrderData = {
 
 export type Mutation = {
   __typename?: 'Mutation';
+  activeProduct: IResponse;
   createCollection: Collection;
   createOrder: OrderResponse;
   createProduct: ProductResponse;
@@ -165,6 +170,11 @@ export type Mutation = {
   updateProduct: ProductResponse;
   updateProductCollection: CollectionResponse;
   userWishlist: UserResponse;
+};
+
+
+export type MutationActiveProductArgs = {
+  ActiveProductInput: ActiveProductInput;
 };
 
 
@@ -274,6 +284,7 @@ export type Product = {
   media: Array<Scalars['String']['output']>;
   price: Scalars['Float']['output'];
   sizes?: Maybe<Array<Scalars['String']['output']>>;
+  status?: Maybe<Scalars['String']['output']>;
   tags?: Maybe<Array<Scalars['String']['output']>>;
   title: Scalars['String']['output'];
   updatedAt?: Maybe<Scalars['DateTime']['output']>;
@@ -452,17 +463,24 @@ export type UpdateProductMutationVariables = Exact<{
 
 export type UpdateProductMutation = { __typename?: 'Mutation', updateProduct: { __typename?: 'ProductResponse', code: number, success: boolean, message?: string | null, product?: { __typename?: 'Product', _id: string, title: string, description: string, category: string, price: number, expense: number, media: Array<string>, collections?: Array<string> | null, tags?: Array<string> | null, sizes?: Array<string> | null, colors?: Array<string> | null, createdAt?: any | null, updatedAt?: any | null } | null } };
 
+export type ActiveProductMutationVariables = Exact<{
+  ActiveProductInput: ActiveProductInput;
+}>;
+
+
+export type ActiveProductMutation = { __typename?: 'Mutation', activeProduct: { __typename?: 'IResponse', code: number, success: boolean, message?: string | null } };
+
 export type GetListCollectionQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetListCollectionQuery = { __typename?: 'Query', getListCollection?: { __typename?: 'AllCollectionResponse', code: number, success: boolean, message?: string | null, listCollection?: Array<{ __typename?: 'Collection', _id: string, title: string, description?: string | null, image: string, createdAt?: any | null, updatedAt?: any | null, products?: Array<{ __typename?: 'Product', _id: string, title: string, description: string, category: string, price: number, expense: number, media: Array<string>, collections?: Array<string> | null, tags?: Array<string> | null, sizes?: Array<string> | null, colors?: Array<string> | null, createdAt?: any | null, updatedAt?: any | null }> | null }> | null } | null };
+export type GetListCollectionQuery = { __typename?: 'Query', getListCollection?: { __typename?: 'AllCollectionResponse', code: number, success: boolean, message?: string | null, listCollection?: Array<{ __typename?: 'Collection', _id: string, title: string, description?: string | null, image: string, createdAt?: any | null, updatedAt?: any | null, products?: Array<{ __typename?: 'Product', _id: string, title: string, description: string, category: string, price: number, expense: number, media: Array<string>, collections?: Array<string> | null, tags?: Array<string> | null, status?: string | null, sizes?: Array<string> | null, colors?: Array<string> | null, createdAt?: any | null, updatedAt?: any | null }> | null }> | null } | null };
 
 export type GetCollectionQueryVariables = Exact<{
   GetCollectionInput: GetCollectionInput;
 }>;
 
 
-export type GetCollectionQuery = { __typename?: 'Query', getCollection?: { __typename?: 'CollectionResponse', code: number, success: boolean, message?: string | null, collection?: { __typename?: 'Collection', _id: string, title: string, description?: string | null, image: string, createdAt?: any | null, updatedAt?: any | null, products?: Array<{ __typename?: 'Product', _id: string, title: string, description: string, category: string, price: number, expense: number, media: Array<string>, collections?: Array<string> | null, tags?: Array<string> | null, sizes?: Array<string> | null, colors?: Array<string> | null, createdAt?: any | null, updatedAt?: any | null }> | null } | null } | null };
+export type GetCollectionQuery = { __typename?: 'Query', getCollection?: { __typename?: 'CollectionResponse', code: number, success: boolean, message?: string | null, collection?: { __typename?: 'Collection', _id: string, title: string, description?: string | null, image: string, createdAt?: any | null, updatedAt?: any | null, products?: Array<{ __typename?: 'Product', _id: string, title: string, description: string, category: string, price: number, expense: number, media: Array<string>, collections?: Array<string> | null, tags?: Array<string> | null, status?: string | null, sizes?: Array<string> | null, colors?: Array<string> | null, createdAt?: any | null, updatedAt?: any | null }> | null } | null } | null };
 
 export type GetCollectionTitleQueryVariables = Exact<{
   DeleteCollectionInput: DeleteCollectionInput;
@@ -481,40 +499,40 @@ export type GetOrderDetailQueryVariables = Exact<{
 }>;
 
 
-export type GetOrderDetailQuery = { __typename?: 'Query', getOrderDetails: { __typename?: 'OrderResponse', code: number, success: boolean, message?: string | null, order?: { __typename?: 'Order', _id: string, customerClerkId: string, customerName: string, address: string, phone: string, totalAmount: number, email?: string | null, createdAt?: any | null, updatedAt?: any | null, products: Array<{ __typename?: 'OrderItemType', color: string, size: string, quantity: number, product: { __typename?: 'Product', _id: string, title: string, description: string, category: string, price: number, expense: number, media: Array<string>, collections?: Array<string> | null, tags?: Array<string> | null, sizes?: Array<string> | null, colors?: Array<string> | null, createdAt?: any | null, updatedAt?: any | null } }> } | null } };
+export type GetOrderDetailQuery = { __typename?: 'Query', getOrderDetails: { __typename?: 'OrderResponse', code: number, success: boolean, message?: string | null, order?: { __typename?: 'Order', _id: string, customerClerkId: string, customerName: string, address: string, phone: string, totalAmount: number, email?: string | null, createdAt?: any | null, updatedAt?: any | null, products: Array<{ __typename?: 'OrderItemType', color: string, size: string, quantity: number, product: { __typename?: 'Product', _id: string, title: string, description: string, category: string, price: number, expense: number, media: Array<string>, collections?: Array<string> | null, tags?: Array<string> | null, status?: string | null, sizes?: Array<string> | null, colors?: Array<string> | null, createdAt?: any | null, updatedAt?: any | null } }> } | null } };
 
 export type GetOrderByCustomerQueryVariables = Exact<{
   customerClerkId: Scalars['String']['input'];
 }>;
 
 
-export type GetOrderByCustomerQuery = { __typename?: 'Query', getOrderByCustomer?: { __typename?: 'OrderByCustomer', code: number, success: boolean, message?: string | null, listOrder?: Array<{ __typename?: 'Order', _id: string, customerClerkId: string, customerName: string, address: string, phone: string, totalAmount: number, email?: string | null, createdAt?: any | null, updatedAt?: any | null, products: Array<{ __typename?: 'OrderItemType', color: string, size: string, quantity: number, product: { __typename?: 'Product', _id: string, title: string, description: string, category: string, price: number, expense: number, media: Array<string>, collections?: Array<string> | null, tags?: Array<string> | null, sizes?: Array<string> | null, colors?: Array<string> | null, createdAt?: any | null, updatedAt?: any | null } }> }> | null } | null };
+export type GetOrderByCustomerQuery = { __typename?: 'Query', getOrderByCustomer?: { __typename?: 'OrderByCustomer', code: number, success: boolean, message?: string | null, listOrder?: Array<{ __typename?: 'Order', _id: string, customerClerkId: string, customerName: string, address: string, phone: string, totalAmount: number, email?: string | null, createdAt?: any | null, updatedAt?: any | null, products: Array<{ __typename?: 'OrderItemType', color: string, size: string, quantity: number, product: { __typename?: 'Product', _id: string, title: string, description: string, category: string, price: number, expense: number, media: Array<string>, collections?: Array<string> | null, tags?: Array<string> | null, status?: string | null, sizes?: Array<string> | null, colors?: Array<string> | null, createdAt?: any | null, updatedAt?: any | null } }> }> | null } | null };
 
 export type GetListProductQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetListProductQuery = { __typename?: 'Query', getListProduct?: { __typename?: 'AllProductResponse', code: number, success: boolean, message?: string | null, listProduct?: Array<{ __typename?: 'Product', _id: string, title: string, description: string, category: string, price: number, expense: number, media: Array<string>, collections?: Array<string> | null, tags?: Array<string> | null, sizes?: Array<string> | null, colors?: Array<string> | null, createdAt?: any | null, updatedAt?: any | null }> | null } | null };
+export type GetListProductQuery = { __typename?: 'Query', getListProduct?: { __typename?: 'AllProductResponse', code: number, success: boolean, message?: string | null, listProduct?: Array<{ __typename?: 'Product', _id: string, title: string, description: string, category: string, price: number, expense: number, media: Array<string>, status?: string | null, collections?: Array<string> | null, tags?: Array<string> | null, sizes?: Array<string> | null, colors?: Array<string> | null, createdAt?: any | null, updatedAt?: any | null }> | null } | null };
 
 export type GetProductDetailQueryVariables = Exact<{
   getProductInput: GetProductInput;
 }>;
 
 
-export type GetProductDetailQuery = { __typename?: 'Query', getProductDetail: { __typename?: 'ProductResponse', code: number, success: boolean, message?: string | null, product?: { __typename?: 'Product', _id: string, title: string, description: string, category: string, price: number, expense: number, media: Array<string>, colors?: Array<string> | null, collections?: Array<string> | null, tags?: Array<string> | null, sizes?: Array<string> | null, createdAt?: any | null, updatedAt?: any | null } | null } };
+export type GetProductDetailQuery = { __typename?: 'Query', getProductDetail: { __typename?: 'ProductResponse', code: number, success: boolean, message?: string | null, product?: { __typename?: 'Product', _id: string, title: string, description: string, category: string, price: number, expense: number, media: Array<string>, colors?: Array<string> | null, status?: string | null, collections?: Array<string> | null, tags?: Array<string> | null, sizes?: Array<string> | null, createdAt?: any | null, updatedAt?: any | null } | null } };
 
 export type SearchProductQueryVariables = Exact<{
   productQuery: Scalars['String']['input'];
 }>;
 
 
-export type SearchProductQuery = { __typename?: 'Query', searchProduct?: { __typename?: 'AllProductResponse', code: number, success: boolean, message?: string | null, listProduct?: Array<{ __typename?: 'Product', _id: string, title: string, description: string, category: string, price: number, expense: number, media: Array<string>, collections?: Array<string> | null, tags?: Array<string> | null, sizes?: Array<string> | null, colors?: Array<string> | null, createdAt?: any | null, updatedAt?: any | null }> | null } | null };
+export type SearchProductQuery = { __typename?: 'Query', searchProduct?: { __typename?: 'AllProductResponse', code: number, success: boolean, message?: string | null, listProduct?: Array<{ __typename?: 'Product', _id: string, title: string, description: string, category: string, price: number, expense: number, media: Array<string>, status?: string | null, collections?: Array<string> | null, tags?: Array<string> | null, sizes?: Array<string> | null, colors?: Array<string> | null, createdAt?: any | null, updatedAt?: any | null }> | null } | null };
 
 export type GetRelatedProductQueryVariables = Exact<{
   mainProductId: Scalars['String']['input'];
 }>;
 
 
-export type GetRelatedProductQuery = { __typename?: 'Query', getRelatedProduct?: { __typename?: 'AllProductResponse', code: number, success: boolean, message?: string | null, listProduct?: Array<{ __typename?: 'Product', _id: string, title: string, description: string, category: string, price: number, expense: number, media: Array<string>, collections?: Array<string> | null, tags?: Array<string> | null, sizes?: Array<string> | null, colors?: Array<string> | null, createdAt?: any | null, updatedAt?: any | null }> | null } | null };
+export type GetRelatedProductQuery = { __typename?: 'Query', getRelatedProduct?: { __typename?: 'AllProductResponse', code: number, success: boolean, message?: string | null, listProduct?: Array<{ __typename?: 'Product', _id: string, title: string, description: string, category: string, price: number, status?: string | null, expense: number, media: Array<string>, collections?: Array<string> | null, tags?: Array<string> | null, sizes?: Array<string> | null, colors?: Array<string> | null, createdAt?: any | null, updatedAt?: any | null }> | null } | null };
 
 export type GetListUserQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -933,6 +951,41 @@ export function useUpdateProductMutation(baseOptions?: Apollo.MutationHookOption
 export type UpdateProductMutationHookResult = ReturnType<typeof useUpdateProductMutation>;
 export type UpdateProductMutationResult = Apollo.MutationResult<UpdateProductMutation>;
 export type UpdateProductMutationOptions = Apollo.BaseMutationOptions<UpdateProductMutation, UpdateProductMutationVariables>;
+export const ActiveProductDocument = gql`
+    mutation activeProduct($ActiveProductInput: ActiveProductInput!) {
+  activeProduct(ActiveProductInput: $ActiveProductInput) {
+    code
+    success
+    message
+  }
+}
+    `;
+export type ActiveProductMutationFn = Apollo.MutationFunction<ActiveProductMutation, ActiveProductMutationVariables>;
+
+/**
+ * __useActiveProductMutation__
+ *
+ * To run a mutation, you first call `useActiveProductMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useActiveProductMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [activeProductMutation, { data, loading, error }] = useActiveProductMutation({
+ *   variables: {
+ *      ActiveProductInput: // value for 'ActiveProductInput'
+ *   },
+ * });
+ */
+export function useActiveProductMutation(baseOptions?: Apollo.MutationHookOptions<ActiveProductMutation, ActiveProductMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<ActiveProductMutation, ActiveProductMutationVariables>(ActiveProductDocument, options);
+      }
+export type ActiveProductMutationHookResult = ReturnType<typeof useActiveProductMutation>;
+export type ActiveProductMutationResult = Apollo.MutationResult<ActiveProductMutation>;
+export type ActiveProductMutationOptions = Apollo.BaseMutationOptions<ActiveProductMutation, ActiveProductMutationVariables>;
 export const GetListCollectionDocument = gql`
     query getListCollection {
   getListCollection {
@@ -956,6 +1009,7 @@ export const GetListCollectionDocument = gql`
         media
         collections
         tags
+        status
         sizes
         colors
         createdAt
@@ -1020,6 +1074,7 @@ export const GetCollectionDocument = gql`
         media
         collections
         tags
+        status
         sizes
         colors
         createdAt
@@ -1183,6 +1238,7 @@ export const GetOrderDetailDocument = gql`
           media
           collections
           tags
+          status
           sizes
           colors
           createdAt
@@ -1256,6 +1312,7 @@ export const GetOrderByCustomerDocument = gql`
           media
           collections
           tags
+          status
           sizes
           colors
           createdAt
@@ -1313,6 +1370,7 @@ export const GetListProductDocument = gql`
       price
       expense
       media
+      status
       collections
       tags
       sizes
@@ -1370,6 +1428,7 @@ export const GetProductDetailDocument = gql`
       expense
       media
       colors
+      status
       collections
       tags
       sizes
@@ -1426,6 +1485,7 @@ export const SearchProductDocument = gql`
       price
       expense
       media
+      status
       collections
       tags
       sizes
@@ -1481,6 +1541,7 @@ export const GetRelatedProductDocument = gql`
       description
       category
       price
+      status
       expense
       media
       collections

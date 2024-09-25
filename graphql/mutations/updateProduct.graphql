@@ -20,3 +20,11 @@ mutation UpdateProduct($UpdateProductInput: UpdateProductInput!) {
     }
   }
 }
+
+mutation activeProduct($ActiveProductInput: ActiveProductInput!) {
+  activeProduct(ActiveProductInput: $ActiveProductInput) {
+    code
+    success
+    message
+  }
+}

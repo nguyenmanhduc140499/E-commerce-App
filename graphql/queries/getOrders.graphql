@@ -42,6 +42,7 @@ query GetOrderDetail($detailsOrderInput: DetailsOrderInput!) {
           media
           collections
           tags
+          status
           sizes
           colors
           createdAt
@@ -81,6 +82,7 @@ query GetOrderByCustomer($customerClerkId: String!) {
           media
           collections
           tags
+          status
           sizes
           colors
           createdAt

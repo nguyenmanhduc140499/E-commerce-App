@@ -11,6 +11,7 @@ query GetListProduct {
       price
       expense
       media
+      status
       collections
       tags
       sizes
@@ -35,6 +36,7 @@ query getProductDetail($getProductInput: GetProductInput!) {
       expense
       media
       colors
+      status
       collections
       tags
       sizes
@@ -57,6 +59,7 @@ query SearchProduct($productQuery: String!) {
       price
       expense
       media
+      status
       collections
       tags
       sizes
@@ -78,6 +81,7 @@ query GetRelatedProduct($mainProductId: String!) {
       description
       category
       price
+      status
       expense
       media
       collections

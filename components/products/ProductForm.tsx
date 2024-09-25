@@ -92,6 +92,22 @@ const ProductForm: React.FC<ProductProps> = ({ initialData }) => {
       e.preventDefault();
     }
   };
+
+  const activeProduct = async ({ _id }: { _id: string }) => {
+    try {
+      const res = await fetch(`/api/products/${_id}`, {
+        method: "PUT",
+      });
+      if (res.ok) {
+        window.location.reload();
+        setLoading(false);
+      }
+    } catch (error) {
+      console.log("[active_product_PUT]", error);
+      toast.error("Something went wrong! Please try again.");
+    }
+  };
+
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
       setLoading(true);
@@ -128,26 +144,39 @@ const ProductForm: React.FC<ProductProps> = ({ initialData }) => {
     <div
       style={{
         pointerEvents: initialData?.status === "DISCONTINUED" ? "none" : "auto", // Vô hiệu hóa tất cả các sự kiện tương tác
-        opacity: initialData?.status === "DISCONTINUED" ? 1 : 0, // Hiển thị dữ liệu với độ mờ thông thường (tuỳ chọn)
+        opacity: initialData?.status === "DISCONTINUED" ? 0.5 : 1, // Hiển thị dữ liệu với độ mờ thông thường (tuỳ chọn)
       }}
       className="p-10"
     >
       {initialData ? (
         <div className="flex items-center justify-between">
           <p className="text-heading2-bold">Edit Product</p>
-          <Delete id={initialData._id} item={"product"} />
+          {initialData.status === "INUSE" ? (
+            <Delete id={initialData._id} item={"product"} />
+          ) : (
+            <button
+              className="z-10 bg-red-1 text-white border rounded-lg py-2 px-2"
+              style={{
+                pointerEvents: "auto", // Cho phép sự kiện tương tác trên nút này
+              }}
+              onClick={() => activeProduct({ _id: initialData._id })}
+            >
+              Reuse product
+            </button>
+          )}
         </div>
       ) : (
         <p className="text-heading2-bold">Create Product</p>
       )}
       <Separator className="bg-grey-1 mt-4 mb-7" />
+
       {initialData?.status === "DISCONTINUED" && (
-        <span className="bg-blue-1 text-white rounded-md">
+        <span className="bg-blue-1 text-white rounded-md py-2 px-2 border rounded-lg">
           Product is discontinued
         </span>
       )}
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 py-7">
           <FormField
             control={form.control}
             name="title"

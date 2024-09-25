@@ -33,5 +33,6 @@ export const columns: ColumnDef<OrderItemType>[] = [
   {
     accessorKey: "status",
     header: "Status",
+    cell: ({ row }) => row.original.product.status,
   },
 ];

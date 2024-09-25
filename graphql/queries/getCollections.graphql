@@ -20,6 +20,7 @@ query getListCollection {
         media
         collections
         tags
+        status
         sizes
         colors
         createdAt
@@ -51,6 +52,7 @@ query getCollection($GetCollectionInput: GetCollectionInput!) {
         media
         collections
         tags
+        status
         sizes
         colors
         createdAt

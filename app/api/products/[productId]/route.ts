@@ -2,6 +2,7 @@ import {
     DeleteProductDocument,
     GetProductDetailDocument,
     UpdateProductDocument,
+    ActiveProductDocument
 } from "@/generated/graphql";
 import client from "@/lib/apolloClient";
 import { auth } from "@clerk/nextjs/server";
@@ -169,6 +170,49 @@ export const DELETE = async (
         } catch (mutationError) {
             console.error("Error during mutation:", mutationError);
             return new NextResponse("Error during deletion", { status: 500 });
+        }
+
+    } catch (err) {
+        return new NextResponse("Internal Server Error", { status: 500 });
+    }
+};
+
+//Active product
+export const PUT = async (
+    req: NextRequest,
+    { params }: { params: { productId: string } }
+) => {
+    try {
+        const { userId } = auth();
+        if (!userId) {
+            return new NextResponse("Unauthorized", { status: 403 });
+        }
+        const variables = {
+            ActiveProductInput: { _id: params.productId },
+        };
+        const ACTIVE_PRODUCT_QUERY = ActiveProductDocument;
+        try {
+            const { data, errors } = await client.mutate({
+                mutation: ACTIVE_PRODUCT_QUERY,
+                variables,
+            });
+
+            if (!data.activeProduct.success) {
+                return new NextResponse(data.activeProduct.message, {
+                    status: data.activeProduct.code,
+                });
+            }
+
+            if (errors) {
+                return NextResponse.json(errors[0].message, {
+                    status: 500,
+                });
+            }
+
+            return NextResponse.json({ message: "Product actived" }, { status: 200 })
+        } catch (mutationError) {
+            console.error("Error during active product:", mutationError);
+            return new NextResponse("Error during active product", { status: 500 });
         }
 
     } catch (err) {

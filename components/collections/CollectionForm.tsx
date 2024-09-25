@@ -36,6 +36,7 @@ const formSchema = z.object({
         collections: z.array(z.string()),
         tags: z.array(z.string()),
         sizes: z.array(z.string()),
+        status: z.string(),
         colors: z.array(z.string()),
         price: z.coerce.number().min(0.1),
         expense: z.coerce.number().min(0.1),
@@ -176,7 +177,7 @@ const CollectionForm: React.FC<CollectionProps> = ({ initialData }) => {
             )}
           />
 
-          {initialData?.products.length ? (
+          {initialData && initialData.products.length && (
             <div className="flex flex-col gap-6">
               <FormLabel>Products</FormLabel>
               <div className="flex flex-wrap gap-16">
@@ -189,8 +190,6 @@ const CollectionForm: React.FC<CollectionProps> = ({ initialData }) => {
                 ))}
               </div>
             </div>
-          ) : (
-            <p></p>
           )}
           <div className="flex gap-10">
             <Button type="submit" className="bg-blue-1 rounded-md text-white">

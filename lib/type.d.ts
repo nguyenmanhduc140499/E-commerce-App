@@ -16,6 +16,7 @@ type ProductType = {
     tags: [string];
     sizes: [string];
     colors: [string];
+    status: string;
     price: number;
     expense: number;
     createdAt: Date;
@@ -30,6 +31,16 @@ type OrderColumnType = {
     createdAt: Date
 }
 
+type OrderDetailType = {
+    _id: string
+    customer: string,
+    products: OrderItemType[],
+    totalAmount: number,
+    address: string,
+    email: string,
+    phone: string,
+    createdAt: Date
+}
 type OrderItemType = {
     product: ProductType
     color: string;

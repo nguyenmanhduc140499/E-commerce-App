@@ -30,6 +30,7 @@ const formSchema = z.object({
   category: z.string(),
   collections: z.array(z.string()),
   tags: z.array(z.string()),
+  status: z.string(),
   sizes: z.array(z.string()),
   colors: z.array(z.string()),
   price: z.coerce.number().min(0.1),
@@ -72,6 +73,7 @@ const ProductForm: React.FC<ProductProps> = ({ initialData }) => {
           description: "",
           media: [],
           category: "",
+          status: "",
           collections: [],
           tags: [],
           sizes: [],
@@ -123,7 +125,13 @@ const ProductForm: React.FC<ProductProps> = ({ initialData }) => {
   return loading ? (
     <Loader /> //important: have to load data done before showing
   ) : (
-    <div className="p-10">
+    <div
+      style={{
+        pointerEvents: initialData?.status === "DISCONTINUED" ? "none" : "auto", // Vô hiệu hóa tất cả các sự kiện tương tác
+        opacity: initialData?.status === "DISCONTINUED" ? 1 : 0, // Hiển thị dữ liệu với độ mờ thông thường (tuỳ chọn)
+      }}
+      className="p-10"
+    >
       {initialData ? (
         <div className="flex items-center justify-between">
           <p className="text-heading2-bold">Edit Product</p>
@@ -133,6 +141,11 @@ const ProductForm: React.FC<ProductProps> = ({ initialData }) => {
         <p className="text-heading2-bold">Create Product</p>
       )}
       <Separator className="bg-grey-1 mt-4 mb-7" />
+      {initialData?.status === "DISCONTINUED" && (
+        <span className="bg-blue-1 text-white rounded-md">
+          Product is discontinued
+        </span>
+      )}
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
           <FormField

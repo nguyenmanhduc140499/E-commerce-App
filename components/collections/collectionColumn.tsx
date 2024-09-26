@@ -2,6 +2,7 @@
 import { ColumnDef } from "@tanstack/react-table";
 import Delete from "../custom ui/Delete";
 import Link from "next/link";
+import Image from "next/image";
 
 export const columns: ColumnDef<CollectionType>[] = [
   {
@@ -14,6 +15,19 @@ export const columns: ColumnDef<CollectionType>[] = [
       >
         {row.original.title}
       </Link>
+    ),
+  },
+  {
+    accessorKey: "image",
+    header: "Image",
+    cell: ({ row }) => (
+      <Image
+        src={row.original.image}
+        width={90}
+        height={90}
+        alt="product"
+        className="w-[90px] h-[90px] object-cover rounded-xl"
+      />
     ),
   },
   {

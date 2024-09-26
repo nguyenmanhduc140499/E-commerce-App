@@ -4,6 +4,7 @@ import { ColumnDef } from "@tanstack/react-table";
 import toast from "react-hot-toast";
 import Delete from "../custom ui/Delete";
 import Link from "next/link";
+import Image from "next/image";
 
 const activeProduct = async ({ _id }: { _id: string }) => {
   try {
@@ -27,6 +28,19 @@ export const columns: ColumnDef<ProductType>[] = [
       <Link href={`/products/${row.original._id}`} className="hover:text-red-1">
         {row.original.title}
       </Link>
+    ),
+  },
+  {
+    accessorKey: "image",
+    header: "Image",
+    cell: ({ row }) => (
+      <Image
+        src={row.original.media[0]}
+        width={90}
+        height={90}
+        alt="product"
+        className="w-[90px] h-[90px] object-cover rounded-xl"
+      />
     ),
   },
   {

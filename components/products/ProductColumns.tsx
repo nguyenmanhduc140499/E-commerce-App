@@ -5,6 +5,7 @@ import toast from "react-hot-toast";
 import Delete from "../custom ui/Delete";
 import Link from "next/link";
 import Image from "next/image";
+import { formatCurrencyVND } from "@/lib/common";
 
 const activeProduct = async ({ _id }: { _id: string }) => {
   try {
@@ -51,10 +52,12 @@ export const columns: ColumnDef<ProductType>[] = [
   {
     accessorKey: "price",
     header: "Price (VND)",
+    cell: ({ row }) => formatCurrencyVND(row.original.price),
   },
   {
     accessorKey: "expense",
     header: "Expense (VND)",
+    cell: ({ row }) => formatCurrencyVND(row.original.expense),
   },
   {
     accessorKey: "status",

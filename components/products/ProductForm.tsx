@@ -182,7 +182,11 @@ const ProductForm: React.FC<ProductProps> = ({ initialData }) => {
             name="title"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Title</FormLabel>
+                <FormLabel>
+                  <p className="flex flex-row">
+                    Title<p className="text-red-1"> *</p>
+                  </p>
+                </FormLabel>
                 <FormControl>
                   <Input
                     placeholder="Title"
@@ -199,7 +203,11 @@ const ProductForm: React.FC<ProductProps> = ({ initialData }) => {
             name="description"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Description</FormLabel>
+                <FormLabel>
+                  <p className="flex flex-row">
+                    Description<p className="text-red-1"> *</p>
+                  </p>
+                </FormLabel>
                 <FormControl>
                   <Textarea
                     placeholder="Description"
@@ -217,7 +225,11 @@ const ProductForm: React.FC<ProductProps> = ({ initialData }) => {
             name="media"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Image</FormLabel>
+                <FormLabel>
+                  <p className="flex flex-row">
+                    Media<p className="text-red-1"> *</p>
+                  </p>
+                </FormLabel>
                 <FormControl>
                   <ImageUpload
                     value={field.value}
@@ -246,7 +258,11 @@ const ProductForm: React.FC<ProductProps> = ({ initialData }) => {
                 name="price"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Price (VND)</FormLabel>
+                    <FormLabel>
+                      <p className="flex flex-row">
+                        Price (VND)<p className="text-red-1"> *</p>
+                      </p>
+                    </FormLabel>
                     <FormControl>
                       <Input
                         type="number"
@@ -265,7 +281,11 @@ const ProductForm: React.FC<ProductProps> = ({ initialData }) => {
                 name="expense"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Expense (VND)</FormLabel>
+                    <FormLabel>
+                      <p className="flex flex-row">
+                        Expense (VND)<p className="text-red-1"> *</p>
+                      </p>
+                    </FormLabel>
                     <FormControl>
                       <Input
                         type="number"
@@ -284,7 +304,11 @@ const ProductForm: React.FC<ProductProps> = ({ initialData }) => {
                 name="category"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Category</FormLabel>
+                    <FormLabel>
+                      <p className="flex flex-row">
+                        Category<p className="text-red-1"> *</p>
+                      </p>
+                    </FormLabel>
                     <FormControl>
                       <Input
                         placeholder="Category"

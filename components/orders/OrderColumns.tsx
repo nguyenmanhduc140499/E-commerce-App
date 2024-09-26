@@ -1,6 +1,7 @@
 "use client";
 import { ColumnDef } from "@tanstack/react-table";
 import Link from "next/link";
+import { formatCurrencyVND } from "@/lib/common";
 
 export const columns: ColumnDef<OrderColumnType>[] = [
   {
@@ -23,6 +24,7 @@ export const columns: ColumnDef<OrderColumnType>[] = [
   {
     accessorKey: "totalAmount",
     header: "Total Amount",
+    cell: ({ row }) => formatCurrencyVND(row.original.totalAmount),
   },
   {
     accessorKey: "createdAt",

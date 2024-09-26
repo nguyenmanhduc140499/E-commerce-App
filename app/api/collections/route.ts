@@ -11,7 +11,7 @@ import { NextRequest, NextResponse } from "next/server";
 export const POST = async (req: NextRequest) => {
   try {
     const { userId } = auth();
-    const { title, description, image } = await req.json();
+    const { title, description, image, banner } = await req.json();
     if (!userId) {
       return new NextResponse("Unauthorized", { status: 403 });
     }
@@ -37,11 +37,29 @@ export const POST = async (req: NextRequest) => {
     }
     try {
       const CREATE_COLLECTION_QUERY = CreateCollectionDocument;
-      const { data } = await client.mutate({
+      const { data, errors } = await client.mutate({
         mutation: CREATE_COLLECTION_QUERY,
-        variables: { title: title, description: description, image: image },
+        variables: {
+          CreateCollectionInput: { title, description, image, banner },
+        },
       });
-      return NextResponse.json(data.createCollection, { status: 200 });
+
+      if (!data.createCollection.success) {
+        return NextResponse.json(data.createCollection.message, {
+          status: data.createCollection.code,
+        });
+      }
+
+      if (errors) {
+        return NextResponse.json(errors[0].message, {
+          status: 500,
+        });
+      }
+
+      return NextResponse.json(data.createCollection.collection, {
+        status: 200,
+      });
+
     } catch (error) {
       console.error("Error during mutation:", error);
       return new NextResponse("Error during deletion", { status: 500 });
@@ -57,7 +75,7 @@ export const GET = async () => {
     const GET_COLLECTIONS_QUERY = GetListCollectionDocument;
     const { data } = await client.query({
       query: GET_COLLECTIONS_QUERY,
-      fetchPolicy: 'network-only'
+      fetchPolicy: "network-only",
     });
     return NextResponse.json(data.getListCollection.listCollection, {
       status: 200,

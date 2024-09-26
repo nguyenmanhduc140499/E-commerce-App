@@ -8,6 +8,7 @@ mutation UpdateCollection($UpdateCollectionInput: UpdateCollectionInput!) {
       title
       description
       image
+      banner
       createdAt
       updatedAt
       products {
@@ -43,6 +44,7 @@ mutation UpdateProductCollection(
       title
       description
       image
+      banner
       createdAt
       updatedAt
       products {

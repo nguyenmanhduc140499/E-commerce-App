@@ -8,6 +8,7 @@ query getListCollection {
       title
       description
       image
+      banner
       createdAt
       updatedAt
       products {
@@ -40,6 +41,7 @@ query getCollection($GetCollectionInput: GetCollectionInput!) {
       title
       description
       image
+      banner
       createdAt
       updatedAt
       products {

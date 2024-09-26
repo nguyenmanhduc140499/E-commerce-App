@@ -20,7 +20,7 @@ export const GET = async (
         };
 
         try {
-            const { data } = await client.query({
+            const { data, errors } = await client.query({
                 query: GET_COLLECTION_DETAIL_QUERY,
                 variables,
             });
@@ -29,6 +29,16 @@ export const GET = async (
                     JSON.stringify({ message: "Collection not found" }),
                     { status: 400 }
                 );
+            }
+            if (!data.getCollection.success) {
+                return NextResponse.json(data.getCollection.message, {
+                    status: data.getCollection.code,
+                });
+            }
+            if (errors) {
+                return NextResponse.json(errors[0].message, {
+                    status: 500,
+                });
             }
             return NextResponse.json(data.getCollection.collection, { status: 200 });
         } catch (queryError) {
@@ -48,7 +58,7 @@ export const POST = async (
 ) => {
     try {
         const { userId } = auth();
-        const { title, description, image } = await req.json();
+        const { title, description, image, banner } = await req.json();
         const GET_COLLECTION_QUERY = GetCollectionDocument;
         const UPDATE_COLLECTION_MUTATION = UpdateCollectionDocument;
         if (!userId) {
@@ -84,6 +94,7 @@ export const POST = async (
                         title,
                         description,
                         image,
+                        banner
                     },
                 },
             });

@@ -26,6 +26,7 @@ const formSchema = z.object({
   title: z.string().min(2).max(50),
   description: z.string().min(2).max(500).trim(),
   image: z.string(),
+  banner: z.string(),
   products: z
     .array(
       z.object({
@@ -61,6 +62,7 @@ const CollectionForm: React.FC<CollectionProps> = ({ initialData }) => {
           title: "",
           description: "",
           image: "",
+          banner: "",
         },
   });
 
@@ -123,7 +125,11 @@ const CollectionForm: React.FC<CollectionProps> = ({ initialData }) => {
             name="title"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Title</FormLabel>
+                <FormLabel>
+                  <p className="flex flex-row">
+                    Title<p className="text-red-1"> *</p>
+                  </p>
+                </FormLabel>
                 <FormControl>
                   <Input
                     placeholder="Title"
@@ -160,7 +166,11 @@ const CollectionForm: React.FC<CollectionProps> = ({ initialData }) => {
             name="image"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Image</FormLabel>
+                <FormLabel>
+                  <p className="flex flex-row">
+                    Image<p className="text-red-1"> *</p>
+                  </p>
+                </FormLabel>
                 <FormControl>
                   <ImageUpload
                     value={field.value ? [field.value] : []}
@@ -177,7 +187,33 @@ const CollectionForm: React.FC<CollectionProps> = ({ initialData }) => {
             )}
           />
 
-          {initialData && initialData.products.length && (
+          <FormField
+            control={form.control}
+            name="banner"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>
+                  <p className="flex flex-row">
+                    Banner<p className="text-red-1"> *</p>
+                  </p>
+                </FormLabel>
+                <FormControl>
+                  <ImageUpload
+                    value={field.value ? [field.value] : []}
+                    onChange={url => {
+                      field.onChange(url);
+                    }}
+                    onRemove={() => {
+                      field.onChange("");
+                    }}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          {initialData && initialData.products.length ? (
             <div className="flex flex-col gap-6">
               <FormLabel>Products</FormLabel>
               <div className="flex flex-wrap gap-16">
@@ -190,6 +226,8 @@ const CollectionForm: React.FC<CollectionProps> = ({ initialData }) => {
                 ))}
               </div>
             </div>
+          ) : (
+            <p></p>
           )}
           <div className="flex gap-10">
             <Button type="submit" className="bg-blue-1 rounded-md text-white">

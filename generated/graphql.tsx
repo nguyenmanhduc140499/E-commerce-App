@@ -57,6 +57,7 @@ export type AllUserResponse = {
 export type Collection = {
   __typename?: 'Collection';
   _id: Scalars['ID']['output'];
+  banner: Scalars['String']['output'];
   createdAt?: Maybe<Scalars['DateTime']['output']>;
   description?: Maybe<Scalars['String']['output']>;
   image: Scalars['String']['output'];
@@ -82,6 +83,7 @@ export type CollectionTitleResponse = {
 };
 
 export type CreateCollectionInput = {
+  banner: Scalars['String']['input'];
   description?: InputMaybe<Scalars['String']['input']>;
   image: Scalars['String']['input'];
   title: Scalars['String']['input'];
@@ -160,7 +162,7 @@ export type ListOrderData = {
 export type Mutation = {
   __typename?: 'Mutation';
   activeProduct: IResponse;
-  createCollection: Collection;
+  createCollection: CollectionResponse;
   createOrder: OrderResponse;
   createProduct: ProductResponse;
   createUser: UserResponse;
@@ -356,6 +358,7 @@ export type QuerySearchProductArgs = {
 
 export type UpdateCollectionInput = {
   _id?: InputMaybe<Scalars['String']['input']>;
+  banner: Scalars['String']['input'];
   description?: InputMaybe<Scalars['String']['input']>;
   image: Scalars['String']['input'];
   title: Scalars['String']['input'];
@@ -406,13 +409,11 @@ export type UserWishlistInput = {
 };
 
 export type CreateCollectionMutationVariables = Exact<{
-  title: Scalars['String']['input'];
-  description?: InputMaybe<Scalars['String']['input']>;
-  image: Scalars['String']['input'];
+  CreateCollectionInput: CreateCollectionInput;
 }>;
 
 
-export type CreateCollectionMutation = { __typename?: 'Mutation', createCollection: { __typename?: 'Collection', _id: string, title: string, description?: string | null, image: string, createdAt?: any | null, updatedAt?: any | null, products?: Array<{ __typename?: 'Product', _id: string, title: string, description: string, category: string, price: number, expense: number, media: Array<string>, collections?: Array<string> | null, tags?: Array<string> | null, sizes?: Array<string> | null, colors?: Array<string> | null, createdAt?: any | null, updatedAt?: any | null }> | null } };
+export type CreateCollectionMutation = { __typename?: 'Mutation', createCollection: { __typename?: 'CollectionResponse', code: number, success: boolean, message?: string | null, collection?: { __typename?: 'Collection', _id: string, title: string, description?: string | null, image: string, banner: string, createdAt?: any | null, updatedAt?: any | null, products?: Array<{ __typename?: 'Product', _id: string, title: string, description: string, category: string, price: number, expense: number, media: Array<string>, collections?: Array<string> | null, tags?: Array<string> | null, sizes?: Array<string> | null, colors?: Array<string> | null, createdAt?: any | null, updatedAt?: any | null }> | null } | null } };
 
 export type CreateOrderMutationVariables = Exact<{
   createOrderInput: CreateOrderInput;
@@ -447,14 +448,14 @@ export type UpdateCollectionMutationVariables = Exact<{
 }>;
 
 
-export type UpdateCollectionMutation = { __typename?: 'Mutation', updateCollection: { __typename?: 'CollectionResponse', code: number, success: boolean, message?: string | null, collection?: { __typename?: 'Collection', _id: string, title: string, description?: string | null, image: string, createdAt?: any | null, updatedAt?: any | null, products?: Array<{ __typename?: 'Product', _id: string, title: string, description: string, category: string, price: number, expense: number, media: Array<string>, collections?: Array<string> | null, tags?: Array<string> | null, sizes?: Array<string> | null, colors?: Array<string> | null, createdAt?: any | null, updatedAt?: any | null }> | null } | null } };
+export type UpdateCollectionMutation = { __typename?: 'Mutation', updateCollection: { __typename?: 'CollectionResponse', code: number, success: boolean, message?: string | null, collection?: { __typename?: 'Collection', _id: string, title: string, description?: string | null, image: string, banner: string, createdAt?: any | null, updatedAt?: any | null, products?: Array<{ __typename?: 'Product', _id: string, title: string, description: string, category: string, price: number, expense: number, media: Array<string>, collections?: Array<string> | null, tags?: Array<string> | null, sizes?: Array<string> | null, colors?: Array<string> | null, createdAt?: any | null, updatedAt?: any | null }> | null } | null } };
 
 export type UpdateProductCollectionMutationVariables = Exact<{
   UpdateProductCollectionInput: UpdateProductCollectionInput;
 }>;
 
 
-export type UpdateProductCollectionMutation = { __typename?: 'Mutation', updateProductCollection: { __typename?: 'CollectionResponse', code: number, success: boolean, message?: string | null, collection?: { __typename?: 'Collection', _id: string, title: string, description?: string | null, image: string, createdAt?: any | null, updatedAt?: any | null, products?: Array<{ __typename?: 'Product', _id: string, title: string, description: string, category: string, price: number, expense: number, media: Array<string>, collections?: Array<string> | null, tags?: Array<string> | null, sizes?: Array<string> | null, colors?: Array<string> | null, createdAt?: any | null, updatedAt?: any | null }> | null } | null } };
+export type UpdateProductCollectionMutation = { __typename?: 'Mutation', updateProductCollection: { __typename?: 'CollectionResponse', code: number, success: boolean, message?: string | null, collection?: { __typename?: 'Collection', _id: string, title: string, description?: string | null, image: string, banner: string, createdAt?: any | null, updatedAt?: any | null, products?: Array<{ __typename?: 'Product', _id: string, title: string, description: string, category: string, price: number, expense: number, media: Array<string>, collections?: Array<string> | null, tags?: Array<string> | null, sizes?: Array<string> | null, colors?: Array<string> | null, createdAt?: any | null, updatedAt?: any | null }> | null } | null } };
 
 export type UpdateProductMutationVariables = Exact<{
   UpdateProductInput: UpdateProductInput;
@@ -473,14 +474,14 @@ export type ActiveProductMutation = { __typename?: 'Mutation', activeProduct: { 
 export type GetListCollectionQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetListCollectionQuery = { __typename?: 'Query', getListCollection?: { __typename?: 'AllCollectionResponse', code: number, success: boolean, message?: string | null, listCollection?: Array<{ __typename?: 'Collection', _id: string, title: string, description?: string | null, image: string, createdAt?: any | null, updatedAt?: any | null, products?: Array<{ __typename?: 'Product', _id: string, title: string, description: string, category: string, price: number, expense: number, media: Array<string>, collections?: Array<string> | null, tags?: Array<string> | null, status?: string | null, sizes?: Array<string> | null, colors?: Array<string> | null, createdAt?: any | null, updatedAt?: any | null }> | null }> | null } | null };
+export type GetListCollectionQuery = { __typename?: 'Query', getListCollection?: { __typename?: 'AllCollectionResponse', code: number, success: boolean, message?: string | null, listCollection?: Array<{ __typename?: 'Collection', _id: string, title: string, description?: string | null, image: string, banner: string, createdAt?: any | null, updatedAt?: any | null, products?: Array<{ __typename?: 'Product', _id: string, title: string, description: string, category: string, price: number, expense: number, media: Array<string>, collections?: Array<string> | null, tags?: Array<string> | null, status?: string | null, sizes?: Array<string> | null, colors?: Array<string> | null, createdAt?: any | null, updatedAt?: any | null }> | null }> | null } | null };
 
 export type GetCollectionQueryVariables = Exact<{
   GetCollectionInput: GetCollectionInput;
 }>;
 
 
-export type GetCollectionQuery = { __typename?: 'Query', getCollection?: { __typename?: 'CollectionResponse', code: number, success: boolean, message?: string | null, collection?: { __typename?: 'Collection', _id: string, title: string, description?: string | null, image: string, createdAt?: any | null, updatedAt?: any | null, products?: Array<{ __typename?: 'Product', _id: string, title: string, description: string, category: string, price: number, expense: number, media: Array<string>, collections?: Array<string> | null, tags?: Array<string> | null, status?: string | null, sizes?: Array<string> | null, colors?: Array<string> | null, createdAt?: any | null, updatedAt?: any | null }> | null } | null } | null };
+export type GetCollectionQuery = { __typename?: 'Query', getCollection?: { __typename?: 'CollectionResponse', code: number, success: boolean, message?: string | null, collection?: { __typename?: 'Collection', _id: string, title: string, description?: string | null, image: string, banner: string, createdAt?: any | null, updatedAt?: any | null, products?: Array<{ __typename?: 'Product', _id: string, title: string, description: string, category: string, price: number, expense: number, media: Array<string>, collections?: Array<string> | null, tags?: Array<string> | null, status?: string | null, sizes?: Array<string> | null, colors?: Array<string> | null, createdAt?: any | null, updatedAt?: any | null }> | null } | null } | null };
 
 export type GetCollectionTitleQueryVariables = Exact<{
   DeleteCollectionInput: DeleteCollectionInput;
@@ -541,30 +542,34 @@ export type GetListUserQuery = { __typename?: 'Query', getListUser: { __typename
 
 
 export const CreateCollectionDocument = gql`
-    mutation CreateCollection($title: String!, $description: String, $image: String!) {
-  createCollection(
-    CreateCollectionInput: {title: $title, description: $description, image: $image}
-  ) {
-    _id
-    title
-    description
-    image
-    createdAt
-    updatedAt
-    products {
+    mutation createCollection($CreateCollectionInput: CreateCollectionInput!) {
+  createCollection(CreateCollectionInput: $CreateCollectionInput) {
+    code
+    success
+    message
+    collection {
       _id
       title
       description
-      category
-      price
-      expense
-      media
-      collections
-      tags
-      sizes
-      colors
+      image
+      banner
       createdAt
       updatedAt
+      products {
+        _id
+        title
+        description
+        category
+        price
+        expense
+        media
+        collections
+        tags
+        sizes
+        colors
+        createdAt
+        updatedAt
+      }
     }
   }
 }
@@ -584,9 +589,7 @@ export type CreateCollectionMutationFn = Apollo.MutationFunction<CreateCollectio
  * @example
  * const [createCollectionMutation, { data, loading, error }] = useCreateCollectionMutation({
  *   variables: {
- *      title: // value for 'title'
- *      description: // value for 'description'
- *      image: // value for 'image'
+ *      CreateCollectionInput: // value for 'CreateCollectionInput'
  *   },
  * });
  */
@@ -794,6 +797,7 @@ export const UpdateCollectionDocument = gql`
       title
       description
       image
+      banner
       createdAt
       updatedAt
       products {
@@ -854,6 +858,7 @@ export const UpdateProductCollectionDocument = gql`
       title
       description
       image
+      banner
       createdAt
       updatedAt
       products {
@@ -997,6 +1002,7 @@ export const GetListCollectionDocument = gql`
       title
       description
       image
+      banner
       createdAt
       updatedAt
       products {
@@ -1062,6 +1068,7 @@ export const GetCollectionDocument = gql`
       title
       description
       image
+      banner
       createdAt
       updatedAt
       products {

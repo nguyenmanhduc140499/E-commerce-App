@@ -7,24 +7,40 @@ export const GET = async () => {
         const GET_USERS_QUERY = GetListUserDocument;
         const { data, errors } = await client.query({
             query: GET_USERS_QUERY,
-            fetchPolicy: "network-only"
+            fetchPolicy: "network-only",
         });
 
         if (!data.getListUser.success) {
             return new NextResponse(data.getListUser.message, {
                 status: data.getListUser.code,
+                headers: {
+                    "Cache-Control": "no-store, max-age=0, must-revalidate",
+                },
             });
         }
         if (errors) {
             return NextResponse.json(errors[0].message, {
                 status: 500,
+                headers: {
+                    "Cache-Control": "no-store, max-age=0, must-revalidate",
+                },
             });
         }
 
-        return NextResponse.json(data.getListUser.listUser, { status: 200 });
+        return NextResponse.json(data.getListUser.listUser, {
+            status: 200,
+            headers: {
+                "Cache-Control": "no-store, max-age=0, must-revalidate",
+            },
+        });
     } catch (err) {
         console.log("[Orders_GET]", err);
-        return new NextResponse("Internal Server Error", { status: 500 });
+        return new NextResponse("Internal Server Error", {
+            status: 500,
+            headers: {
+                "Cache-Control": "no-store, max-age=0, must-revalidate",
+            },
+        });
     }
 };
 export const dynamic = "force-dynamic";

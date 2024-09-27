@@ -1,67 +1,24 @@
-// "use client";
-
-// import Loader from "@/components/custom ui/Loader";
 import SalesChart from "@/components/custom ui/SaleChart";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { formatCurrencyVND } from "@/lib/common";
 import { CircleDollarSign, ShoppingBag, UserRound } from "lucide-react";
-// import { useState, useEffect } from "react";
 
 const Home = async () => {
   const orderRes = await fetch(
     `${process.env.NEXT_PUBLIC_API_URL}/api/orders`,
     {
-      cache: "reload",
+      cache: "no-store",
     }
   );
   const customerRes = await fetch(
     `${process.env.NEXT_PUBLIC_API_URL}/api/customer`,
     {
-      cache: "reload",
+      cache: "no-store",
     }
   );
   const customers = await customerRes.json();
   const orders = await orderRes.json();
-
-  // const [loading, setLoading] = useState(false);
-  // const [orders, setOrders] = useState([]);
-  // const [customers, setCustomer] = useState([]);
-  // const getTotalSales = async () => {
-  //   try {
-  //     setLoading(true);
-  //     const res = await fetch("/api/orders", {
-  //       method: "GET",
-  //       cache: "reload",
-  //     });
-  //     const data = await res.json();
-  //     setOrders(data);
-  //     setLoading(false);
-  //   } catch (err) {
-  //     console.log("[orders_GET", err);
-  //   }
-  // };
-
-  // const getTotalCustomers = async () => {
-  //   try {
-  //     setLoading(true);
-  //     const res = await fetch(`/api/customer`, {
-  //       method: "GET",
-  //       cache: "reload",
-  //     });
-  //     const data = await res.json();
-  //     setCustomer(data);
-  //     setLoading(false);
-  //   } catch (err) {
-  //     console.log("[customers_GET", err);
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   getTotalSales();
-  //   getTotalCustomers();
-  // }, []);
-
   const totalOrders = orders.length;
   const totalRevenue = orders.reduce(
     (acc: number, order: OrderColumnType) => acc + order.totalAmount,
@@ -86,9 +43,6 @@ const Home = async () => {
     return { name: month, sales: salesPerMonth[i] || 0 };
   });
 
-  // return loading ? (
-  //   <Loader />
-  // ) :
   return (
     <div className="px-8 py-10">
       <p className="text-heading2-bold">Dashboard</p>

@@ -15,7 +15,7 @@ const Orders = () => {
     try {
       const res = await fetch("/api/orders", {
         method: "GET",
-        cache: "no-cache",
+        cache: "reload",
       });
       const data = await res.json();
       setOrders(data);

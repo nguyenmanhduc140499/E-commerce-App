@@ -7,6 +7,7 @@ export const GET = async () => {
     const GET_ORDERS_QUERY = GetListOrderDocument;
     const { data, errors } = await client.query({
       query: GET_ORDERS_QUERY,
+      fetchPolicy: "network-only"
     });
 
     if (!data.getListOrder.success) {

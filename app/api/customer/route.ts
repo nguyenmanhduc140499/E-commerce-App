@@ -7,6 +7,7 @@ export const GET = async () => {
         const GET_USERS_QUERY = GetListUserDocument;
         const { data, errors } = await client.query({
             query: GET_USERS_QUERY,
+            fetchPolicy: "network-only"
         });
 
         if (!data.getListUser.success) {

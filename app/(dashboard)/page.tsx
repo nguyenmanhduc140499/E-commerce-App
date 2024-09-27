@@ -4,9 +4,11 @@ import { Separator } from "@/components/ui/separator";
 import { formatCurrencyVND } from "@/lib/common";
 import { CircleDollarSign, ShoppingBag, UserRound } from "lucide-react";
 
+const cacheBuster = new Date().getTime();
+
 const Home = async () => {
   const orderRes = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/api/orders`,
+    `${process.env.NEXT_PUBLIC_API_URL}/api/orders?cb=${cacheBuster}`,
     {
       method: "GET",
       cache: "no-store",
@@ -18,7 +20,7 @@ const Home = async () => {
     }
   );
   const customerRes = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/api/customer`,
+    `${process.env.NEXT_PUBLIC_API_URL}/api/customer?cb=${cacheBuster}`,
     {
       method: "GET",
       cache: "no-store",

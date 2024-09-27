@@ -2,16 +2,20 @@ import { DataTable } from "@/components/custom ui/DataTable";
 import { columns } from "@/components/orders/OrderColumns";
 import { Separator } from "@/components/ui/separator";
 
+const cacheBuster = new Date().getTime();
 const Orders = async () => {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/orders`, {
-    method: "GET",
-    cache: "no-store",
-    headers: {
-      "Cache-Control": "no-store, no-cache, must-revalidate",
-      Pragma: "no-cache",
-      Expires: "0",
-    },
-  });
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_API_URL}/api/orders?cb=${cacheBuster}`,
+    {
+      method: "GET",
+      cache: "no-store",
+      headers: {
+        "Cache-Control": "no-store, no-cache, must-revalidate",
+        Pragma: "no-cache",
+        Expires: "0",
+      },
+    }
+  );
   const orders = await res.json();
 
   return (

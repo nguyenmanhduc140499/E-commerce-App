@@ -14,7 +14,7 @@ const Customers = () => {
     try {
       const res = await fetch(`/api/customer`, {
         method: "GET",
-        cache: "reload",
+        cache: "no-cache",
       });
       const data = await res.json();
       setCustomer(data);

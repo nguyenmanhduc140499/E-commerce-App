@@ -17,7 +17,7 @@ const Home = () => {
       setLoading(true);
       const res = await fetch("/api/orders", {
         method: "GET",
-        cache: "reload",
+        cache: "no-cache",
       });
       const data = await res.json();
       setOrders(data);
@@ -32,7 +32,7 @@ const Home = () => {
       setLoading(true);
       const res = await fetch(`/api/customer`, {
         method: "GET",
-        cache: "reload",
+        cache: "no-cache",
       });
       const data = await res.json();
       setCustomer(data);

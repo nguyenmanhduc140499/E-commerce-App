@@ -7,6 +7,16 @@ import client from "@/lib/apolloClient";
 import { auth } from "@clerk/nextjs/server";
 import { NextRequest, NextResponse } from "next/server";
 
+const corsHeaders = {
+  "Access-Control-Allow-Origin": "*",
+  "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
+  "Access-Control-Allow-Headers": "Content-Type, Authorization",
+};
+
+export async function OPTIONS() {
+  return NextResponse.json({}, { headers: corsHeaders });
+}
+
 //create collection
 export const POST = async (req: NextRequest) => {
   try {
@@ -79,10 +89,11 @@ export const GET = async () => {
     });
     return NextResponse.json(data.getListCollection.listCollection, {
       status: 200,
+      headers: corsHeaders
     });
   } catch (err) {
     console.log("[collections_GET]", err);
-    return new NextResponse("Internal Server Error", { status: 500 });
+    return new NextResponse("Internal Server Error", { status: 500, headers: corsHeaders });
   }
 };
 

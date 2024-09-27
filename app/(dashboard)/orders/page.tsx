@@ -4,7 +4,13 @@ import { Separator } from "@/components/ui/separator";
 
 const Orders = async () => {
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/orders`, {
+    method: "GET",
     cache: "no-store",
+    headers: {
+      "Cache-Control": "no-store, no-cache, must-revalidate",
+      Pragma: "no-cache",
+      Expires: "0",
+    },
   });
   const orders = await res.json();
 

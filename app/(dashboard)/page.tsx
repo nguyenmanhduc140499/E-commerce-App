@@ -8,13 +8,25 @@ const Home = async () => {
   const orderRes = await fetch(
     `${process.env.NEXT_PUBLIC_API_URL}/api/orders`,
     {
+      method: "GET",
       cache: "no-store",
+      headers: {
+        "Cache-Control": "no-store, no-cache, must-revalidate",
+        Pragma: "no-cache",
+        Expires: "0",
+      },
     }
   );
   const customerRes = await fetch(
     `${process.env.NEXT_PUBLIC_API_URL}/api/customer`,
     {
+      method: "GET",
       cache: "no-store",
+      headers: {
+        "Cache-Control": "no-store, no-cache, must-revalidate",
+        Pragma: "no-cache",
+        Expires: "0",
+      },
     }
   );
   const customers = await customerRes.json();

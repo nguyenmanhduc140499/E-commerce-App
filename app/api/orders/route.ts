@@ -14,7 +14,9 @@ export const GET = async () => {
       return new NextResponse(data.getListOrder.message, {
         status: data.getListOrder.code,
         headers: {
-          "Cache-Control": "no-store, max-age=0, must-revalidate",
+          "Cache-Control": "no-store, no-cache, must-revalidate",
+          "Pragma": "no-cache",
+          "Expires": "0"
         },
       });
     }
@@ -23,7 +25,9 @@ export const GET = async () => {
       return NextResponse.json(errors[0].message, {
         status: 500,
         headers: {
-          "Cache-Control": "no-store, max-age=0, must-revalidate",
+          "Cache-Control": "no-store, no-cache, must-revalidate",
+          "Pragma": "no-cache",
+          "Expires": "0"
         },
       });
     }
@@ -31,7 +35,9 @@ export const GET = async () => {
     return NextResponse.json(data.getListOrder.listOrder, {
       status: 200,
       headers: {
-        "Cache-Control": "no-store, max-age=0, must-revalidate",
+        "Cache-Control": "no-store, no-cache, must-revalidate",
+        "Pragma": "no-cache",
+        "Expires": "0"
       },
     });
   } catch (err) {
@@ -39,7 +45,9 @@ export const GET = async () => {
     return new NextResponse("Internal Server Error", {
       status: 500,
       headers: {
-        "Cache-Control": "no-store, max-age=0, must-revalidate",
+        "Cache-Control": "no-store, no-cache, must-revalidate",
+        "Pragma": "no-cache",
+        "Expires": "0"
       },
     });
   }

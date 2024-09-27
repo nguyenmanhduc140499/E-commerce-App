@@ -32,7 +32,7 @@ export const POST = async (req: NextRequest) => {
             amount: customer.totalAmount,
             description: `Nghien - Payment for the order #${transID}`,
             embed_data: JSON.stringify({
-                redirecturl: `${process.env.NEXT_PUBLIC_ECOMMERCE_STORE_URL_PAGE}/api/payment_success`,
+                redirecturl: `${process.env.NEXT_PUBLIC_ECOMMERCE_STORE_URL_PAGE}/payment_success`,
                 customerName: customer.name,
                 email: customer.email,
                 address: customer.address,
@@ -40,7 +40,7 @@ export const POST = async (req: NextRequest) => {
             }),
             bank_code: "",
             callback_url: `${process.env.NEXT_PUBLIC_API_URL}/api/zalopay/callback`,
-            // callback_url: `https://e884-2405-4802-1ca4-ef90-7dc0-1673-e18a-bcf3.ngrok-free.app/api/zalopay/callback`,
+            // callback_url: `https://e884-2405-4802-1ca4-ef90-7dc0-1673-e18a-bcf3.ngrok-free.app/api/zalopay/callback`, ngrok
         };
         // Create the signature using Key1
         const data =

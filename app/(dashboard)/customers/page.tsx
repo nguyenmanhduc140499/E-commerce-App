@@ -1,36 +1,41 @@
-"use client";
+// "use client";
 
 import { DataTable } from "@/components/custom ui/DataTable";
-import Loader from "@/components/custom ui/Loader";
+// import Loader from "@/components/custom ui/Loader";
 import { columns } from "@/components/customers/CustomerColumns";
 import { Separator } from "@/components/ui/separator";
-import { useState, useEffect } from "react";
+// import { useState, useEffect } from "react";
 
-const Customers = () => {
-  const [loading, setLoading] = useState(true);
-  const [customers, setCustomer] = useState([]);
+const Customers = async () => {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/customer`, {
+    cache: "reload",
+  });
+  const customers = await res.json();
+  // const [loading, setLoading] = useState(true);
+  // const [customers, setCustomer] = useState([]);
 
-  const getOrders = async () => {
-    try {
-      const res = await fetch(`/api/customer`, {
-        method: "GET",
-        cache: "reload",
-      });
-      const data = await res.json();
-      setCustomer(data);
-      setLoading(false);
-    } catch (err) {
-      console.log("[customers_GET", err);
-    }
-  };
+  // const getOrders = async () => {
+  //   try {
+  //     const res = await fetch(`/api/customer`, {
+  //       method: "GET",
+  //       cache: "reload",
+  //     });
+  //     const data = await res.json();
+  //     setCustomer(data);
+  //     setLoading(false);
+  //   } catch (err) {
+  //     console.log("[customers_GET", err);
+  //   }
+  // };
 
-  useEffect(() => {
-    getOrders();
-  }, []);
+  // useEffect(() => {
+  //   getOrders();
+  // }, []);
 
-  return loading ? (
-    <Loader />
-  ) : (
+  // return loading ? (
+  //   <Loader />
+  // ) :
+  return (
     <div className="px-10 py-5">
       <p className="text-heading2-bold">Customers</p>
       <Separator className="bg-grey-1 my-5" />

@@ -28,6 +28,22 @@ const OrderDetails = ({ params }: { params: { orderId: string } }) => {
     getOrderDetail();
   }, []);
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  let refactorProductData: PopulateOrderItemType[] = [];
+  if (orderDetail) {
+    refactorProductData = orderDetail?.products.map(item => {
+      return {
+        productId: item.product._id,
+        productStatus: item.product.status,
+        productTitle: item.product.title,
+        productMedia: item.product.media,
+        color: item.color,
+        size: item.size,
+        quantity: item.quantity,
+      };
+    });
+  }
+
   return loading ? (
     <Loader />
   ) : (
@@ -40,7 +56,7 @@ const OrderDetails = ({ params }: { params: { orderId: string } }) => {
           </p>
           <p className="text-base-bold">
             Customer name:{" "}
-            <span className="text-base-medium">{orderDetail.customer}</span>
+            <span className="text-base-medium">{orderDetail.customerName}</span>
           </p>
           <p className="text-base-bold">
             Shipping address:{" "}
@@ -58,11 +74,16 @@ const OrderDetails = ({ params }: { params: { orderId: string } }) => {
           <p className="text-base-bold">
             Phone: <span className="text-base-medium">{orderDetail.phone}</span>
           </p>
-          <DataTable
-            columns={columns}
-            data={orderDetail.products}
-            searchKey="product"
-          />
+          <div>
+            <p className="font-light italic text-xs pt-5">
+              You can search by product
+            </p>
+            <DataTable
+              columns={columns}
+              data={refactorProductData}
+              searchKey="productTitle"
+            />
+          </div>
         </div>
       )}
     </div>

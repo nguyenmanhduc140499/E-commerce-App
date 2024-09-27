@@ -34,7 +34,7 @@ type OrderColumnType = {
 
 type OrderDetailType = {
     _id: string
-    customer: string,
+    customerName: string,
     products: OrderItemType[],
     totalAmount: number,
     address: string,
@@ -44,6 +44,16 @@ type OrderDetailType = {
 }
 type OrderItemType = {
     product: ProductType
+    color: string;
+    size: string;
+    quantity: number;
+}
+
+type PopulateOrderItemType = {
+    productId: string,
+    productStatus: string,
+    productTitle: string,
+    productMedia: [string]
     color: string;
     size: string;
     quantity: number;

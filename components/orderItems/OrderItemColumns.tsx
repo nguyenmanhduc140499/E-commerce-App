@@ -2,21 +2,35 @@
 
 import { ColumnDef } from "@tanstack/react-table";
 import Link from "next/link";
+import Image from "next/image";
 
-export const columns: ColumnDef<OrderItemType>[] = [
+export const columns: ColumnDef<PopulateOrderItemType>[] = [
   {
-    accessorKey: "product",
+    accessorKey: "productTitle",
     header: "Product",
     cell: ({ row }) => {
       return (
         <Link
-          href={`/products/${row.original.product._id}`}
+          href={`/products/${row.original.productId}`}
           className="hover:text-red-1"
         >
-          {row.original.product.title}
+          {row.original.productTitle}
         </Link>
       );
     },
+  },
+  {
+    accessorKey: "image",
+    header: "Image",
+    cell: ({ row }) => (
+      <Image
+        src={row.original.productMedia[0]}
+        width={90}
+        height={90}
+        alt="product"
+        className="w-[90px] h-[90px] object-cover rounded-xl"
+      />
+    ),
   },
   {
     accessorKey: "color",
@@ -33,6 +47,6 @@ export const columns: ColumnDef<OrderItemType>[] = [
   {
     accessorKey: "status",
     header: "Status",
-    cell: ({ row }) => row.original.product.status,
+    cell: ({ row }) => row.original.productStatus,
   },
 ];

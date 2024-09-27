@@ -257,7 +257,7 @@ const ProductForm: React.FC<ProductProps> = ({ initialData }) => {
                 control={form.control}
                 name="price"
                 render={({ field }) => (
-                  <FormItem>
+                  <FormItem className="pt-5">
                     <FormLabel>
                       <p className="flex flex-row">
                         Price (VND)<p className="text-red-1"> *</p>
@@ -280,7 +280,7 @@ const ProductForm: React.FC<ProductProps> = ({ initialData }) => {
                 control={form.control}
                 name="expense"
                 render={({ field }) => (
-                  <FormItem>
+                  <FormItem className="pt-5">
                     <FormLabel>
                       <p className="flex flex-row">
                         Expense (VND)<p className="text-red-1"> *</p>
@@ -303,7 +303,7 @@ const ProductForm: React.FC<ProductProps> = ({ initialData }) => {
                 control={form.control}
                 name="category"
                 render={({ field }) => (
-                  <FormItem>
+                  <FormItem className="pt-5">
                     <FormLabel>
                       <p className="flex flex-row">
                         Category<p className="text-red-1"> *</p>
@@ -325,7 +325,7 @@ const ProductForm: React.FC<ProductProps> = ({ initialData }) => {
                 control={form.control}
                 name="tags"
                 render={({ field }) => (
-                  <FormItem>
+                  <FormItem className="pt-5">
                     <FormLabel>Tags</FormLabel>
                     <FormControl>
                       <MultiText
@@ -348,7 +348,7 @@ const ProductForm: React.FC<ProductProps> = ({ initialData }) => {
                 control={form.control}
                 name="colors"
                 render={({ field }) => (
-                  <FormItem>
+                  <FormItem className="pt-5">
                     <FormLabel>Colors</FormLabel>
                     <FormControl>
                       <MultiText
@@ -375,7 +375,7 @@ const ProductForm: React.FC<ProductProps> = ({ initialData }) => {
                 control={form.control}
                 name="sizes"
                 render={({ field }) => (
-                  <FormItem>
+                  <FormItem className="pt-5">
                     <FormLabel>Sizes</FormLabel>
                     <FormControl>
                       <MultiText
@@ -404,7 +404,7 @@ const ProductForm: React.FC<ProductProps> = ({ initialData }) => {
                 control={form.control}
                 name="collections"
                 render={({ field }) => (
-                  <FormItem>
+                  <FormItem className="pt-3">
                     <FormLabel>Collections</FormLabel>
                     <FormControl>
                       <MultiSelect

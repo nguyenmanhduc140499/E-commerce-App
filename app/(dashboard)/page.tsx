@@ -11,7 +11,7 @@ const Home = async () => {
     `${process.env.NEXT_PUBLIC_API_URL}/api/orders?cb=${cacheBuster}`,
     {
       method: "GET",
-      cache: "no-store",
+      cache: "reload",
       headers: {
         "Cache-Control": "no-store, no-cache, must-revalidate",
         Pragma: "no-cache",
@@ -23,7 +23,7 @@ const Home = async () => {
     `${process.env.NEXT_PUBLIC_API_URL}/api/customer?cb=${cacheBuster}`,
     {
       method: "GET",
-      cache: "no-store",
+      cache: "reload",
       headers: {
         "Cache-Control": "no-store, no-cache, must-revalidate",
         Pragma: "no-cache",

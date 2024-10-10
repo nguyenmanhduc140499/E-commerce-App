@@ -18,6 +18,10 @@ export type Scalars = {
   DateTime: { input: any; output: any; }
 };
 
+export type ActiveOrder = {
+  orderId: Scalars['String']['input'];
+};
+
 export type ActiveProductInput = {
   _id: Scalars['String']['input'];
 };
@@ -90,12 +94,14 @@ export type CreateCollectionInput = {
 };
 
 export type CreateOrderInput = {
+  _id?: InputMaybe<Scalars['String']['input']>;
   address: Scalars['String']['input'];
   customerClerkId: Scalars['String']['input'];
   customerName: Scalars['String']['input'];
   email?: InputMaybe<Scalars['String']['input']>;
   phone: Scalars['String']['input'];
   products: Array<OrderItemTypeInput>;
+  status?: InputMaybe<Scalars['String']['input']>;
   totalAmount: Scalars['Float']['input'];
 };
 
@@ -161,6 +167,7 @@ export type ListOrderData = {
 
 export type Mutation = {
   __typename?: 'Mutation';
+  activeOrder: IResponse;
   activeProduct: IResponse;
   createCollection: CollectionResponse;
   createOrder: OrderResponse;
@@ -172,6 +179,11 @@ export type Mutation = {
   updateProduct: ProductResponse;
   updateProductCollection: CollectionResponse;
   userWishlist: UserResponse;
+};
+
+
+export type MutationActiveOrderArgs = {
+  activeOrder: ActiveOrder;
 };
 
 
@@ -239,6 +251,7 @@ export type Order = {
   email?: Maybe<Scalars['String']['output']>;
   phone: Scalars['String']['output'];
   products: Array<OrderItemType>;
+  status?: Maybe<Scalars['String']['output']>;
   totalAmount: Scalars['Float']['output'];
   updatedAt?: Maybe<Scalars['DateTime']['output']>;
 };
@@ -420,7 +433,7 @@ export type CreateOrderMutationVariables = Exact<{
 }>;
 
 
-export type CreateOrderMutation = { __typename?: 'Mutation', createOrder: { __typename?: 'OrderResponse', code: number, success: boolean, message?: string | null, order?: { __typename?: 'Order', _id: string, customerClerkId: string, totalAmount: number, address: string, phone: string, email?: string | null, customerName: string, createdAt?: any | null, updatedAt?: any | null, products: Array<{ __typename?: 'OrderItemType', color: string, size: string, quantity: number, product: { __typename?: 'Product', _id: string, title: string, description: string, category: string, price: number, expense: number, media: Array<string>, collections?: Array<string> | null, tags?: Array<string> | null, sizes?: Array<string> | null, colors?: Array<string> | null, createdAt?: any | null, updatedAt?: any | null } }> } | null } };
+export type CreateOrderMutation = { __typename?: 'Mutation', createOrder: { __typename?: 'OrderResponse', code: number, success: boolean, message?: string | null, order?: { __typename?: 'Order', _id: string, customerClerkId: string, totalAmount: number, address: string, phone: string, email?: string | null, customerName: string, status?: string | null, createdAt?: any | null, updatedAt?: any | null, products: Array<{ __typename?: 'OrderItemType', color: string, size: string, quantity: number, product: { __typename?: 'Product', _id: string, title: string, description: string, category: string, price: number, expense: number, media: Array<string>, collections?: Array<string> | null, tags?: Array<string> | null, sizes?: Array<string> | null, colors?: Array<string> | null, createdAt?: any | null, updatedAt?: any | null } }> } | null } };
 
 export type CreateProductMutationVariables = Exact<{
   createProductInput: CreateProductInput;
@@ -456,6 +469,13 @@ export type UpdateProductCollectionMutationVariables = Exact<{
 
 
 export type UpdateProductCollectionMutation = { __typename?: 'Mutation', updateProductCollection: { __typename?: 'CollectionResponse', code: number, success: boolean, message?: string | null, collection?: { __typename?: 'Collection', _id: string, title: string, description?: string | null, image: string, banner: string, createdAt?: any | null, updatedAt?: any | null, products?: Array<{ __typename?: 'Product', _id: string, title: string, description: string, category: string, price: number, expense: number, media: Array<string>, collections?: Array<string> | null, tags?: Array<string> | null, sizes?: Array<string> | null, colors?: Array<string> | null, createdAt?: any | null, updatedAt?: any | null }> | null } | null } };
+
+export type ActiveOrderMutationVariables = Exact<{
+  activeOrder: ActiveOrder;
+}>;
+
+
+export type ActiveOrderMutation = { __typename?: 'Mutation', activeOrder: { __typename?: 'IResponse', code: number, success: boolean, message?: string | null } };
 
 export type UpdateProductMutationVariables = Exact<{
   UpdateProductInput: UpdateProductInput;
@@ -614,6 +634,7 @@ export const CreateOrderDocument = gql`
       phone
       email
       customerName
+      status
       products {
         product {
           _id
@@ -906,6 +927,41 @@ export function useUpdateProductCollectionMutation(baseOptions?: Apollo.Mutation
 export type UpdateProductCollectionMutationHookResult = ReturnType<typeof useUpdateProductCollectionMutation>;
 export type UpdateProductCollectionMutationResult = Apollo.MutationResult<UpdateProductCollectionMutation>;
 export type UpdateProductCollectionMutationOptions = Apollo.BaseMutationOptions<UpdateProductCollectionMutation, UpdateProductCollectionMutationVariables>;
+export const ActiveOrderDocument = gql`
+    mutation activeOrder($activeOrder: ActiveOrder!) {
+  activeOrder(activeOrder: $activeOrder) {
+    code
+    success
+    message
+  }
+}
+    `;
+export type ActiveOrderMutationFn = Apollo.MutationFunction<ActiveOrderMutation, ActiveOrderMutationVariables>;
+
+/**
+ * __useActiveOrderMutation__
+ *
+ * To run a mutation, you first call `useActiveOrderMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useActiveOrderMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [activeOrderMutation, { data, loading, error }] = useActiveOrderMutation({
+ *   variables: {
+ *      activeOrder: // value for 'activeOrder'
+ *   },
+ * });
+ */
+export function useActiveOrderMutation(baseOptions?: Apollo.MutationHookOptions<ActiveOrderMutation, ActiveOrderMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<ActiveOrderMutation, ActiveOrderMutationVariables>(ActiveOrderDocument, options);
+      }
+export type ActiveOrderMutationHookResult = ReturnType<typeof useActiveOrderMutation>;
+export type ActiveOrderMutationResult = Apollo.MutationResult<ActiveOrderMutation>;
+export type ActiveOrderMutationOptions = Apollo.BaseMutationOptions<ActiveOrderMutation, ActiveOrderMutationVariables>;
 export const UpdateProductDocument = gql`
     mutation UpdateProduct($UpdateProductInput: UpdateProductInput!) {
   updateProduct(UpdateProductInput: $UpdateProductInput) {

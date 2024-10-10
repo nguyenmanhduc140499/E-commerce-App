@@ -1,25 +1,36 @@
+"use client";
+
 import { DataTable } from "@/components/custom ui/DataTable";
+import Loader from "@/components/custom ui/Loader";
 import { columns } from "@/components/customers/CustomerColumns";
 import { Separator } from "@/components/ui/separator";
+import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 
-const cacheBuster = new Date().getTime();
-
-const Customers = async () => {
-  const res = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/api/customer?cb=${cacheBuster}`,
-    {
-      method: "GET",
-      cache: "reload",
-      headers: {
-        "Cache-Control": "no-store, no-cache, must-revalidate",
-        Pragma: "no-cache",
-        Expires: "0",
-      },
+const Customers = () => {
+  const [loading, setLoading] = useState(false);
+  const [customers, setCustomers] = useState([]);
+  const getCustomers = async () => {
+    try {
+      setLoading(true);
+      const res = await fetch("/api/customer", {
+        method: "GET",
+        cache: "reload",
+      });
+      const data = await res.json();
+      setCustomers(data);
+      setLoading(false);
+    } catch (error) {
+      toast.error("Something went wrong!. Please try again.");
     }
-  );
-  const customers = await res.json();
+  };
+  useEffect(() => {
+    getCustomers();
+  }, []);
 
-  return (
+  return loading ? (
+    <Loader />
+  ) : (
     <div className="px-10 py-5">
       <p className="text-heading2-bold">Customers</p>
       <Separator className="bg-grey-1 my-5" />

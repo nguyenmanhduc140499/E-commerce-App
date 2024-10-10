@@ -11,6 +11,7 @@ mutation CreateOrder($createOrderInput: CreateOrderInput!) {
       phone
       email
       customerName
+      status
       products {
         product {
           _id

@@ -1,24 +1,36 @@
+"use client";
+
 import { DataTable } from "@/components/custom ui/DataTable";
+import Loader from "@/components/custom ui/Loader";
 import { columns } from "@/components/orders/OrderColumns";
 import { Separator } from "@/components/ui/separator";
+import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 
-const cacheBuster = new Date().getTime();
-const Orders = async () => {
-  const res = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/api/orders?cb=${cacheBuster}`,
-    {
-      method: "GET",
-      cache: "reload",
-      headers: {
-        "Cache-Control": "no-store, no-cache, must-revalidate",
-        Pragma: "no-cache",
-        Expires: "0",
-      },
+const Orders = () => {
+  const [loading, setLoading] = useState(false);
+  const [orders, setOrders] = useState([]);
+  const getOrders = async () => {
+    try {
+      setLoading(true);
+      const res = await fetch("/api/orders", {
+        method: "GET",
+        cache: "reload",
+      });
+      const data = await res.json();
+      setOrders(data);
+      setLoading(false);
+    } catch (error) {
+      toast.error("Something went wrong!. Please try again.");
     }
-  );
-  const orders = await res.json();
+  };
+  useEffect(() => {
+    getOrders();
+  }, []);
 
-  return (
+  return loading ? (
+    <Loader />
+  ) : (
     <div className="px-10 py-5">
       <p className="text-heading2-bold">Orders</p>
       <Separator className="bg-grey-1 my-5" />
@@ -29,7 +41,5 @@ const Orders = async () => {
     </div>
   );
 };
-
-export const dynamic = "force-dynamic";
 
 export default Orders;

@@ -1,38 +1,51 @@
+"use client";
+
+import Loader from "@/components/custom ui/Loader";
 import SalesChart from "@/components/custom ui/SaleChart";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { formatCurrencyVND } from "@/lib/common";
 import { CircleDollarSign, ShoppingBag, UserRound } from "lucide-react";
+import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 
-const cacheBuster = new Date().getTime();
+const Home = () => {
+  const [loading, setLoading] = useState(false);
+  const [orders, setOrders] = useState([]);
+  const [customers, setCustomers] = useState([]);
+  const getOrders = async () => {
+    try {
+      setLoading(true);
+      const res = await fetch("/api/orders", {
+        method: "GET",
+        cache: "reload",
+      });
+      const data = await res.json();
+      setOrders(data);
+      setLoading(false);
+    } catch (error) {
+      toast.error("Something went wrong!. Please try again.");
+    }
+  };
+  const getCustomers = async () => {
+    try {
+      setLoading(true);
+      const res = await fetch("/api/customer", {
+        method: "GET",
+        cache: "reload",
+      });
+      const data = await res.json();
+      setCustomers(data);
+      setLoading(false);
+    } catch (error) {
+      toast.error("Something went wrong!. Please try again.");
+    }
+  };
+  useEffect(() => {
+    getOrders();
+    getCustomers();
+  }, []);
 
-const Home = async () => {
-  const orderRes = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/api/orders?cb=${cacheBuster}`,
-    {
-      method: "GET",
-      cache: "reload",
-      headers: {
-        "Cache-Control": "no-store, no-cache, must-revalidate",
-        Pragma: "no-cache",
-        Expires: "0",
-      },
-    }
-  );
-  const customerRes = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/api/customer?cb=${cacheBuster}`,
-    {
-      method: "GET",
-      cache: "reload",
-      headers: {
-        "Cache-Control": "no-store, no-cache, must-revalidate",
-        Pragma: "no-cache",
-        Expires: "0",
-      },
-    }
-  );
-  const customers = await customerRes.json();
-  const orders = await orderRes.json();
   const totalOrders = orders.length;
   const totalRevenue = orders.reduce(
     (acc: number, order: OrderColumnType) => acc + order.totalAmount,
@@ -57,7 +70,9 @@ const Home = async () => {
     return { name: month, sales: salesPerMonth[i] || 0 };
   });
 
-  return (
+  return loading ? (
+    <Loader />
+  ) : (
     <div className="px-8 py-10">
       <p className="text-heading2-bold">Dashboard</p>
       <Separator className="bg-grey-1 my-5" />

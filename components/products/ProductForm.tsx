@@ -33,8 +33,8 @@ const formSchema = z.object({
   status: z.string(),
   sizes: z.array(z.string()),
   colors: z.array(z.string()),
-  price: z.coerce.number().min(0.1),
-  expense: z.coerce.number().min(0.1),
+  price: z.coerce.number().min(1000),
+  expense: z.coerce.number().min(1000),
 });
 
 interface ProductProps {
@@ -78,8 +78,8 @@ const ProductForm: React.FC<ProductProps> = ({ initialData }) => {
           tags: [],
           sizes: [],
           colors: [],
-          price: 0.1,
-          expense: 0.1,
+          price: 1000,
+          expense: 1000,
         },
   });
 

@@ -34,16 +34,13 @@ const AdminProductCard = ({ product, collectionId }: ProductCardProps) => {
             <Image
               src={product.media[0]}
               alt="product"
-              width={120}
-              height={120}
+              width={600}
+              height={600}
               className="h-[120px] rounded-lg object-cover"
             />
 
             <div>
               <p className="text-base-bold">{product.title}</p>
-              <p className="text-small-medium text-grey-2">
-                {product.category}
-              </p>
             </div>
             <div className="flex justify-between items-center">
               <p className="text-body-bold">

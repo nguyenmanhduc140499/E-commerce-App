@@ -25,8 +25,8 @@ export const columns: ColumnDef<PopulateOrderItemType>[] = [
     cell: ({ row }) => (
       <Image
         src={row.original.productMedia[0]}
-        width={90}
-        height={90}
+        width={360}
+        height={360}
         alt="product"
         className="w-[90px] h-[90px] object-cover rounded-xl"
       />
